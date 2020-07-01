@@ -17,7 +17,7 @@ public class Wifi {
     private Context context;                // contesto dove andrà ad operare la classe
     private WifiManager manager;            // manager del wifi
     private BroadcastReceiver receiver;     // classe che gestirà le connessioni trovate
-    private ArrayList<String> arrayList;    // array che andrà stampato a schermo
+    private ArrayList<Rete> arrayList;    // array che andrà stampato a schermo
     private List<ScanResult> results;       // array temporaneo che conterrà il risultato della wifiscan
     private ListView listView;              // View a cui verranno aggiunti i dati
 
@@ -42,11 +42,12 @@ public class Wifi {
                 // prende i risultati e li aggiunge all'array per la stampa
                 // è qui che andranno creati gli oggetti per il custom adapter
                 for (ScanResult scanResult : results) {
-                    arrayList.add(scanResult.SSID + " - " + scanResult.capabilities + " - " + scanResult.level);
+                    arrayList.add(new Rete(scanResult.SSID, scanResult.capabilities, Integer.toString(scanResult.level)));
+                    //arrayList.add(scanResult.SSID + " - " + scanResult.capabilities + " - " + scanResult.level);
                 }
 
                 // aggiorna la ListView con il nuovo Adapter
-                ArrayAdapter adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, arrayList);
+                ArrayAdapter<Rete> adapter = new ArrayAdapter<Rete>(context, android.R.layout.simple_list_item_1, arrayList);
                 listView.setAdapter(adapter);
             }
         };
