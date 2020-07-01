@@ -47,7 +47,8 @@ public class Wifi {
                 }
 
                 // aggiorna la ListView con il nuovo Adapter
-                ArrayAdapter<Rete> adapter = new ArrayAdapter<Rete>(context, android.R.layout.simple_list_item_1, arrayList);
+                WifiAdapter adapter = new WifiAdapter(context,R.layout.listview_row_rete, arrayList);
+                //ArrayAdapter<Rete> adapter = new ArrayAdapter<Rete>(context, android.R.layout.simple_list_item_1, arrayList);
                 listView.setAdapter(adapter);
             }
         };
