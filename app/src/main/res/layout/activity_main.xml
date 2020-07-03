@@ -8,8 +8,10 @@
 
     <Button
         android:id="@+id/btn_scan"
-        android:layout_width="348dp"
+        android:layout_width="fill_parent"
         android:layout_height="70dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="#9C27B0"
         android:text="SCAN"
@@ -23,9 +25,11 @@
 
     <ListView
         android:id="@+id/view_scan"
-        android:layout_width="363dp"
-        android:layout_height="426dp"
+        android:layout_width="fill_parent"
+        android:layout_height="403dp"
         android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
