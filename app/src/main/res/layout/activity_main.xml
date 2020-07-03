@@ -24,7 +24,9 @@
             android:layout_weight=".40"
             android:gravity="center"
             android:text="SSID"
-            android:textSize="40px" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
 
         <TextView
@@ -34,7 +36,9 @@
             android:layout_weight=".40"
             android:gravity="center"
             android:text="Tipo"
-            android:textSize="40px" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
 
         <TextView
@@ -44,7 +48,9 @@
             android:layout_weight=".20"
             android:gravity="center"
             android:text="Db"
-            android:textSize="40px" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
     </LinearLayout>
     <Button
