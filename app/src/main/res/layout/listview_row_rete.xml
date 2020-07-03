@@ -12,23 +12,30 @@
             android:id="@+id/SSID"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:text="TextView" />
+            android:layout_weight=".40"
+            android:text="Sample Text - Fixed Pixels"
+            android:textSize="35px"
+            android:gravity="left"/>
 
         <TextView
             android:id="@+id/dettagli"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:text="TextView" />
+            android:layout_weight=".40"
+            android:text="[WPA2-PSK-CCPM][ESS]"
+            android:textSize="35px"
+            android:gravity="center"/>
+
 
         <TextView
             android:id="@+id/level"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".33"
+            android:layout_weight=".20"
+            android:text="100"
+            android:textSize="35px"
+            android:gravity="center"/>
 
-            android:text="TextView" />
     </LinearLayout>
 
 </RelativeLayout>
