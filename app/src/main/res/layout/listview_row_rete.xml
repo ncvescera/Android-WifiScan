@@ -24,7 +24,7 @@
             android:layout_weight=".40"
             android:text="[WPA2-PSK-CCPM][ESS]"
             android:textSize="35px"
-            android:gravity="center"/>
+            android:gravity="right"/>
 
 
         <TextView
