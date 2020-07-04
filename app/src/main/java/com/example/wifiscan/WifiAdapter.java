@@ -27,10 +27,10 @@ public class WifiAdapter extends ArrayAdapter<Rete> {
         convertView = inflater.inflate(R.layout.listview_row_rete, null);
 
         // inizializzo gli elementi della tabella
-        TextView SSID = (TextView)convertView.findViewById(R.id.SSID);
-        TextView dettagli = (TextView)convertView.findViewById(R.id.dettagli);
-        TextView level = (TextView)convertView.findViewById(R.id.level);
-        Button pwd = (Button) convertView.findViewById(R.id.pwd);
+        TextView SSID       = (TextView) convertView.findViewById(R.id.SSID);
+        TextView dettagli   = (TextView) convertView.findViewById(R.id.dettagli);
+        TextView level      = (TextView) convertView.findViewById(R.id.level);
+        Button pwd          = (Button) convertView.findViewById(R.id.pwd);
 
         // elemento della lista
         Rete obj = getItem(position);
@@ -53,8 +53,6 @@ public class WifiAdapter extends ArrayAdapter<Rete> {
                 Log.d("BOTTONE_PWD", tmp.getSSID());
             }
         });
-
-
 
         return convertView;
     }

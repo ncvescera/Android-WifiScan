@@ -27,7 +27,6 @@
             android:text="Plain Text"
             android:textSize="15dp" />
 
-
         <TextView
             android:id="@+id/level"
             android:layout_width="0dp"
@@ -42,8 +41,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".25"
-            android:text="PWD"
-            android:textSize="10dp" />
+            android:backgroundTint="#673AB7"
+            android:text="Edit"
+            android:textColor="#FFFFFF"
+            android:textSize="10dp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

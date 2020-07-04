@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -42,8 +43,16 @@ public class Wifi {
                 // prende i risultati e li aggiunge all'array per la stampa
                 // è qui che andranno creati gli oggetti per il custom adapter
                 for (ScanResult scanResult : results) {
-                    arrayList.add(new Rete(scanResult.SSID, scanResult.capabilities, Integer.toString(scanResult.level)));
-                    //arrayList.add(scanResult.SSID + " - " + scanResult.capabilities + " - " + scanResult.level);
+                    // esclude le reti che non hanno il campo SSID
+                    if (scanResult.SSID.equals("")) {
+                        Log.d("NO_SSID_VALUE", scanResult.toString());
+
+                        continue;
+                    } else {
+                        arrayList.add(new Rete(scanResult.SSID, scanResult.capabilities, Integer.toString(scanResult.level)));
+                        Log.d("NETWORK_VALUE", scanResult.toString());
+                        //arrayList.add(scanResult.SSID + " - " + scanResult.capabilities + " - " + scanResult.level);
+                    }
                 }
 
                 // aggiorna la ListView con il nuovo Adapter
