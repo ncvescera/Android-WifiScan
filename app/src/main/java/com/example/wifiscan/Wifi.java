@@ -22,11 +22,11 @@ public class Wifi {
     private List<ScanResult> results;       // array temporaneo che conterrà il risultato della wifiscan
     private ListView listView;              // View a cui verranno aggiunti i dati
 
-    public Wifi(final MainActivity context, final ListView listView) {
+    public Wifi(final MainActivity context, final ListView listView, ArrayList<Rete> dati) {
         this.context = context;
 
         this.listView = listView;
-        this.arrayList = new ArrayList<>();
+        this.arrayList = dati;
 
         this.manager = (WifiManager) this.context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 

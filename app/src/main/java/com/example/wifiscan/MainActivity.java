@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private Wifi gestore;
     private LocationManager gps;
+    private LocationHandler locationHandler;
+    private ArrayList<Rete> dati;
 
     // PER IL WIFI SCAN DEVE ESSERE ABILITATA LA GEOLOCALIZZAZIONE E IL WIFI
 
@@ -43,8 +46,11 @@ public class MainActivity extends AppCompatActivity {
         // inizializzazione della ListView
         listView = findViewById(R.id.view_scan);
 
-        // inizializzazione del gestore del wifi
-        gestore = new Wifi(MainActivity.this, listView);
+        dati = new ArrayList<Rete>();
+
+        // inizializzazione del gestore del wifi e della posizione
+        gestore = new Wifi(MainActivity.this, listView, dati);
+        locationHandler = new LocationHandler(this, dati);
 
         // inizializzazione del bottone per la scanzione e dell'evento onClick
         Button buttonScan = findViewById(R.id.btn_scan);
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 gestore.scanWifi();
+                locationHandler.requestUpdate();
             }
         });
 
@@ -60,8 +67,9 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Log.d("LOG_PASSWORD_0", gestore.arrayList.get(0).getPassword());
-               Log.d("PASSWORD_RETE1", gestore.arrayList.get(1).toString());
+                for(Rete elem : dati) {
+                    Log.d("DATI", elem.toString());
+                }
 
             }
         });
