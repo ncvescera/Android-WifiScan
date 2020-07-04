@@ -17,7 +17,7 @@ public class Wifi {
     private Context context;                // contesto dove andrà ad operare la classe
     private WifiManager manager;            // manager del wifi
     private BroadcastReceiver receiver;     // classe che gestirà le connessioni trovate
-    private ArrayList<Rete> arrayList;    // array che andrà stampato a schermo
+    public ArrayList<Rete> arrayList;    // array che andrà stampato a schermo
     private List<ScanResult> results;       // array temporaneo che conterrà il risultato della wifiscan
     private ListView listView;              // View a cui verranno aggiunti i dati
 

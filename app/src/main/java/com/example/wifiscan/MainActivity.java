@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -41,6 +42,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 gestore.scanWifi();
+            }
+        });
+
+        // Bottone Temporaneo per vedere password
+        Button btn = findViewById(R.id.button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("LOG_PASSWORD_0", gestore.arrayList.get(0).getPassword());
             }
         });
     }

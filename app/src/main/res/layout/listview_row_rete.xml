@@ -4,37 +4,46 @@
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/SSID"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".40"
-            android:text="Sample Text - Fixed Pixels"
+            android:layout_height="match_parent"
+            android:layout_weight=".25"
+            android:text="Plain Text"
             android:textSize="15dp"
             android:gravity="left"/>
 
         <TextView
             android:id="@+id/dettagli"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".40"
-            android:text="[WPA2-PSK-CCPM][ESS]"
-            android:textSize="15dp"
-            android:gravity="right"/>
+            android:layout_height="match_parent"
+            android:layout_weight=".25"
+            android:fadeScrollbars="false"
+            android:gravity="right"
+            android:text="Plain Text"
+            android:textSize="15dp" />
 
 
         <TextView
             android:id="@+id/level"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".20"
-            android:text="100"
+            android:layout_height="match_parent"
+            android:layout_weight=".25"
+            android:text="Plain Text"
             android:textSize="15dp"
             android:gravity="center"/>
+
+        <Button
+            android:id="@+id/pwd"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".25"
+            android:text="PWD"
+            android:textSize="10dp" />
 
     </LinearLayout>
 
