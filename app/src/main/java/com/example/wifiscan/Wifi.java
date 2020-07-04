@@ -15,30 +15,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Wifi {
-    private Context context;                // contesto dove andrà ad operare la classe
+    private MainActivity context;           // contesto dove andrà ad operare la classe
     private WifiManager manager;            // manager del wifi
     private BroadcastReceiver receiver;     // classe che gestirà le connessioni trovate
-    public ArrayList<Rete> arrayList;    // array che andrà stampato a schermo
+    public ArrayList<Rete> arrayList;       // array che andrà stampato a schermo
     private List<ScanResult> results;       // array temporaneo che conterrà il risultato della wifiscan
     private ListView listView;              // View a cui verranno aggiunti i dati
 
-    public Wifi(Context context, final ListView listView) {
+    public Wifi(final MainActivity context, final ListView listView) {
         this.context = context;
 
         this.listView = listView;
         this.arrayList = new ArrayList<>();
 
-        this.manager = (WifiManager) this.context.getSystemService(Context.WIFI_SERVICE);
+        this.manager = (WifiManager) this.context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         check_wifi_state();
 
         this.receiver = new BroadcastReceiver() {
             @Override
-            public void onReceive(Context context, Intent intent) {
+            public void onReceive(Context local_context, Intent intent) {
                 // acquisizione del risultato della scanzione
                 results = manager.getScanResults();
 
-                context.unregisterReceiver(this);   // boh
+                local_context.unregisterReceiver(this);   // boh
 
                 // prende i risultati e li aggiunge all'array per la stampa
                 // è qui che andranno creati gli oggetti per il custom adapter

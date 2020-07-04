@@ -14,11 +14,13 @@ import java.util.List;
 public class WifiAdapter extends ArrayAdapter<Rete> {
 
     private List<Rete> objects;
+    private MainActivity context;
 
-    public WifiAdapter(Context context, int textViewResourceId, List<Rete> objects) {
+    public WifiAdapter(MainActivity context, int textViewResourceId, List<Rete> objects) {
         super(context, textViewResourceId, objects);
 
         this.objects = objects;
+        this.context = context;
     }
 
     @Override
@@ -47,10 +49,10 @@ public class WifiAdapter extends ArrayAdapter<Rete> {
                 // Prendo il relativo oggetto del bottone
                 Rete tmp = objects.get(position);
 
-                // setto la password
-                tmp.setPassword("123");
+                // inizializza l'AlertBox che modificherà la password dell'oggetto
+                AlertBox a = new AlertBox(context, tmp);
 
-                Log.d("BOTTONE_PWD", tmp.getSSID());
+                //Log.d("BOTTONE_PWD", "STR: " + a.getValue());
             }
         });
 

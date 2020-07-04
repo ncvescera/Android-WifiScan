@@ -34,6 +34,6 @@ public class Rete {
     }
     @Override
     public String toString() {
-        return this.SSID + " | " + this.dettagli + " | " + this.level;
+        return this.SSID + " | " + this.dettagli + " | " + this.level + " | " + this.password;
     }
 }
