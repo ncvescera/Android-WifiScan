@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private LocationManager gps;
     private LocationHandler locationHandler;
     private ArrayList<Rete> dati;
+    private Button buttonScan;
+    private Button btn;
 
     // PER IL WIFI SCAN DEVE ESSERE ABILITATA LA GEOLOCALIZZAZIONE E IL WIFI
 
@@ -47,34 +49,40 @@ public class MainActivity extends AppCompatActivity {
         // inizializzazione della ListView
         listView = findViewById(R.id.view_scan);
 
+        // inizializzazione dei dati
         dati = new ArrayList<Rete>();
 
+        // preso riferimento dei bottoni
+        buttonScan = findViewById(R.id.btn_scan);
+        btn = findViewById(R.id.button);
+
         // inizializzazione del gestore del wifi e della posizione
-        gestore = new Wifi(MainActivity.this, listView, dati);
-        locationHandler = new LocationHandler(this, dati);
+        gestore = new Wifi(MainActivity.this, listView, dati, btn);
 
         // inizializzazione del bottone per la scanzione e dell'evento onClick
-        final Button buttonScan = findViewById(R.id.btn_scan);
         buttonScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // disabilita i bottoni
+                btn.setEnabled(false);
                 buttonScan.setEnabled(false);
 
+                // avvia la scnazione del wifi
                 gestore.scanWifi();
-                locationHandler.requestUpdate();
 
+                // riabilita il bottone per la wifiscan dopo tot secondi
+                // per evitare lo spam delle scanzioni
                 new Handler().postDelayed(
                         new Runnable() {
                             public void run() {
                                 buttonScan.setEnabled(true);
                             }
-                        }, 10000    //Specific time in milliseconds
+                        }, 5000    //Specific time in milliseconds
                 );
             }
         });
 
-        // Bottone Temporaneo per vedere password
-        Button btn = findViewById(R.id.button);
+        // Bottone Temporaneo per dubg
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

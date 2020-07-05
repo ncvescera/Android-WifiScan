@@ -8,6 +8,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,12 +22,13 @@ public class Wifi {
     public ArrayList<Rete> arrayList;       // array che andrà stampato a schermo
     private List<ScanResult> results;       // array temporaneo che conterrà il risultato della wifiscan
     private ListView listView;              // View a cui verranno aggiunti i dati
+    private Button button;
 
-    public Wifi(final MainActivity context, final ListView listView, ArrayList<Rete> dati) {
+    public Wifi(final MainActivity context, final ListView listView, final ArrayList<Rete> dati, final Button button) {
         this.context = context;
-
         this.listView = listView;
         this.arrayList = dati;
+        this.button = button;
 
         this.manager = (WifiManager) this.context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
@@ -54,6 +56,13 @@ public class Wifi {
                         //arrayList.add(scanResult.SSID + " - " + scanResult.capabilities + " - " + scanResult.level);
                     }
                 }
+
+                // avvisa che la geolocalizzazione sta iniziando
+                Toast.makeText(context, "Getting location ...", Toast.LENGTH_SHORT).show();
+
+                // crea l'handler per la geolocalizzazione e acquisisce i dati
+                LocationHandler locationHandler = new LocationHandler(context, dati, button);
+                locationHandler.requestUpdate();
 
                 // aggiorna la ListView con il nuovo Adapter
                 WifiAdapter adapter = new WifiAdapter(context,R.layout.listview_row_rete, arrayList);

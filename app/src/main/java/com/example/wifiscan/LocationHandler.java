@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.util.Log;
+import android.widget.Button;
 
 import androidx.core.app.ActivityCompat;
 
@@ -17,10 +18,12 @@ public class LocationHandler {
     private LocationListener locationListener;
     private Context context;
     private ArrayList<Rete> dati;
+    private Button button;
 
-    public LocationHandler(Context context, final ArrayList<Rete> dati) {
+    public LocationHandler(Context context, final ArrayList<Rete> dati, final Button button) {
         this.context = context;
         this.dati = dati;
+        this.button = button;
 
         //final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager = (LocationManager) this.context.getSystemService(Context.LOCATION_SERVICE);
@@ -39,6 +42,9 @@ public class LocationHandler {
                     elem.setLat(location.getLatitude());
                     elem.setLon(location.getLongitude());
                 }
+
+                // riabilita il bottone per risolvere problemi di sincronizzazione
+                button.setEnabled(true);
             }
         };
 
