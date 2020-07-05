@@ -17,6 +17,7 @@ import android.location.LocationManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,12 +54,22 @@ public class MainActivity extends AppCompatActivity {
         locationHandler = new LocationHandler(this, dati);
 
         // inizializzazione del bottone per la scanzione e dell'evento onClick
-        Button buttonScan = findViewById(R.id.btn_scan);
+        final Button buttonScan = findViewById(R.id.btn_scan);
         buttonScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                buttonScan.setEnabled(false);
+
                 gestore.scanWifi();
                 locationHandler.requestUpdate();
+
+                new Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                buttonScan.setEnabled(true);
+                            }
+                        }, 10000    //Specific time in milliseconds
+                );
             }
         });
 
