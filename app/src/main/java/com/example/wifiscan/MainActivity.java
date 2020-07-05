@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -38,8 +37,11 @@ public class MainActivity extends AppCompatActivity {
         buttonScan = findViewById(R.id.btn_scan);
         btn = findViewById(R.id.button);
 
+        // prende il riferimento della view attuale
+        View actualView = getWindow().getDecorView().findViewById(android.R.id.content);
+
         // inizializzazione del gestore del wifi e della posizione
-        gestore = new Wifi(MainActivity.this, listView, dati, btn);
+        gestore = new Wifi(MainActivity.this,  actualView, dati);
 
         // inizializzazione del bottone per la scanzione e dell'evento onClick
         buttonScan.setOnClickListener(new View.OnClickListener() {
@@ -49,18 +51,11 @@ public class MainActivity extends AppCompatActivity {
                 btn.setEnabled(false);
                 buttonScan.setEnabled(false);
 
+                // elimina le righie vecchie per evitare di poter far casino con i bottoni
+                listView.setAdapter(null);
+
                 // avvia la scnazione del wifi
                 gestore.scanWifi();
-
-                // riabilita il bottone per la wifiscan dopo tot secondi
-                // per evitare lo spam delle scanzioni
-                new Handler().postDelayed(
-                        new Runnable() {
-                            public void run() {
-                                buttonScan.setEnabled(true);
-                            }
-                        }, 5000    //Specific time in milliseconds
-                );
             }
         });
 
