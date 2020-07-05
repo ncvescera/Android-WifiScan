@@ -35,7 +35,7 @@ public class AlertBox {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Log.d("TEST_OK", "OK " + text.getText());
-                //value = text.getText().toString();
+
                 obj.setPassword(text.getText().toString());
             }
         });
