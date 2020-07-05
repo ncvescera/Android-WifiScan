@@ -47,6 +47,11 @@ public class AlertBox {
             }
         });
 
+        // se è già stata inserita una password popola il testo dell'EditText con la password salvata
+        if(!obj.getPassword().equals("")) {
+            text.setText(obj.getPassword());
+        }
+
         // creazione e visualizzazione dell'AlertBox
         box = builder.create();
 
