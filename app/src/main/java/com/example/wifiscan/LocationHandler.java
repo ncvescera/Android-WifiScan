@@ -3,6 +3,8 @@ package com.example.wifiscan;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -11,7 +13,10 @@ import android.widget.Button;
 
 import androidx.core.app.ActivityCompat;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class LocationHandler {
     private LocationManager locationManager;
@@ -20,7 +25,7 @@ public class LocationHandler {
     private ArrayList<Rete> dati;
     private Button button;
 
-    public LocationHandler(Context context, final ArrayList<Rete> dati, final Button button) {
+    public LocationHandler(final Context context, final ArrayList<Rete> dati, final Button button) {
         this.context = context;
         this.dati = dati;
         this.button = button;
@@ -42,6 +47,13 @@ public class LocationHandler {
                     elem.setLat(location.getLatitude());
                     elem.setLon(location.getLongitude());
                 }
+
+                // Con questa classe trasformo le coordinate (Double) in una stringa human-readable (String)
+                // Potrebbe tornare utile
+                /*
+                HumanPosition humanPosition = new HumanPosition(context, location.getLatitude(), location.getLongitude());
+                Log.d("TEST_HUMAN", humanPosition.getPosition());
+                */
 
                 // riabilita il bottone per risolvere problemi di sincronizzazione
                 button.setEnabled(true);
