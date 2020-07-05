@@ -1,6 +1,5 @@
 package com.example.wifiscan;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
@@ -24,7 +23,7 @@ public class AlertBox {
         builder = new AlertDialog.Builder(context);
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View dialog_layout = inflater.inflate(R.layout.test_dialog, null);
+        View dialog_layout = inflater.inflate(R.layout.dialog_layout, null);
 
         // prendo riferimento all'EditText
         final EditText text = (EditText) dialog_layout.findViewById(R.id.edittext);
