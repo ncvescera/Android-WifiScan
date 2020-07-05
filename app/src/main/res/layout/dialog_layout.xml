@@ -9,6 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:hint="Testo"/>
+        android:backgroundTint="#673AB7"
+        android:textCursorDrawable="@null"
+        android:hint="Password" />
 
 </LinearLayout>

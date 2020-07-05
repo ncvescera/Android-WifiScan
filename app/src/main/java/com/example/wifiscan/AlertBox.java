@@ -2,6 +2,7 @@ package com.example.wifiscan;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,18 @@ public class AlertBox {
 
         // creazione e visualizzazione dell'AlertBox
         box = builder.create();
+
+        // modifica il colore dei bottoni
+        // si fa con il metodo onShow perchè i bottoni non esistono fino all'invocazione del metodo show
+        box.setOnShowListener( new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface arg0) {
+                box.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#9C27B0"));
+                box.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#9C27B0"));
+            }
+        });
+
+
         box.show();
     }
 }
