@@ -1,15 +1,24 @@
 package com.example.wifiscan;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 
 import android.content.IntentFilter;
 import android.database.Cursor;
+
+import android.content.Intent;
+
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.wifiscan.DBManager.DBManager;
 import com.example.wifiscan.DBManager.DBStrings;
@@ -24,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btn;
 
     private DBManager database;
+
     // PER IL WIFI SCAN DEVE ESSERE ABILITATA LA GEOLOCALIZZAZIONE E IL WIFI
 
     @Override
@@ -88,4 +98,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int i = 0;
+        switch (item.getItemId()){
+            case R.id.dtab1:
+                Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+                startActivity(intent);
+                break;
+            case R.id.dtab2:
+                switch (i){
+                    case 0:
+                        Toast.makeText(this,"è in arrivo, scappa!", Toast.LENGTH_SHORT);
+                        i = i+1;
+                        break;
+                    case 1:
+                        Toast.makeText(this,"ti avevo avvertito...", Toast.LENGTH_SHORT);
+                        i = i+1;
+                        break;
+                    case 2:
+                        Toast.makeText(this,"Ricevuto F.C", Toast.LENGTH_SHORT);
+                        i = i+1;
+                        break;
+
+                }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.dropdown_menu, menu);
+        return true;
+    }
+
 }
