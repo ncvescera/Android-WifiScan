@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name=".FrocioCoroActivity"
-            android:label="nuovaAttivita"
+            android:label="Il Regno di F.C."
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
