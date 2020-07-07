@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.dtab1:
                 Intent intent = new Intent(MainActivity.this, MainActivity2.class);
                 startActivity(intent);
-                break;;
+                break;
             case R.id.dtab2:
                 switch (i){
                     case 0:
