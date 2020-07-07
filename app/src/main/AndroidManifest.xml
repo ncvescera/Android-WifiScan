@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SecondActivity"
+            android:name=".FrocioCoroActivity"
             android:label="nuovaAttivita"
             android:parentActivityName=".MainActivity" >
             <meta-data

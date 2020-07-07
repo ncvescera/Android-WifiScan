@@ -115,7 +115,8 @@ public class MainActivity extends AppCompatActivity {
                         fc_counter = fc_counter +1;
                         break;
                     case 2:
-                        Toast.makeText(MainActivity.this,"Ricevuto F.C", Toast.LENGTH_SHORT).show();
+                        Intent intent2 = new Intent(MainActivity.this, FrocioCoroActivity.class);
+                        startActivity(intent2);
                         fc_counter = fc_counter +1;
                         break;
                 }
