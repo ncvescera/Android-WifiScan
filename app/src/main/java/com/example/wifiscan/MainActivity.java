@@ -4,12 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import android.content.IntentFilter;
-import android.database.Cursor;
-
 import android.content.Intent;
 
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -21,7 +17,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.wifiscan.DBManager.DBManager;
-import com.example.wifiscan.DBManager.DBStrings;
 
 import java.util.ArrayList;
 
@@ -99,29 +94,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    int fc_counter = 0;
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int i = 0;
         switch (item.getItemId()){
             case R.id.dtab1:
                 Intent intent = new Intent(MainActivity.this, MainActivity2.class);
                 startActivity(intent);
                 break;
             case R.id.dtab2:
-                switch (i){
+                switch (fc_counter){
                     case 0:
-                        Toast.makeText(this,"è in arrivo, scappa!", Toast.LENGTH_SHORT);
-                        i = i+1;
+                        Log.d("TOASD_1", "IN TOAST");
+                        Toast.makeText(MainActivity.this,"è in arrivo, scappa!", Toast.LENGTH_SHORT).show();
+                        fc_counter = fc_counter +1;
                         break;
                     case 1:
-                        Toast.makeText(this,"ti avevo avvertito...", Toast.LENGTH_SHORT);
-                        i = i+1;
+                        Toast.makeText(MainActivity.this,"ti avevo avvertito...", Toast.LENGTH_SHORT).show();
+                        fc_counter = fc_counter +1;
                         break;
                     case 2:
-                        Toast.makeText(this,"Ricevuto F.C", Toast.LENGTH_SHORT);
-                        i = i+1;
+                        Toast.makeText(MainActivity.this,"Ricevuto F.C", Toast.LENGTH_SHORT).show();
+                        fc_counter = fc_counter +1;
                         break;
-
                 }
         }
         return super.onOptionsItemSelected(item);
