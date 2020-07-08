@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".DbActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="176dp"
-        android:layout_height="24dp"
-        android:text="Oh cazzo è un altra attività"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ListView
+        android:id="@+id/cursor_listview"
+        android:layout_width="match_parent"
+        android:layout_height="403dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.107" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

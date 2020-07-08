@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
+import com.example.wifiscan.Rete;
+
+import java.util.ArrayList;
+
 public class DBManager {
     private DBHelper dbhelper;
 
@@ -66,5 +70,64 @@ public class DBManager {
         }
 
         return crs;
+    }
+
+    public ArrayList<Rete> cursorToArray(Cursor c) {
+        ArrayList<Rete> array = new ArrayList<Rete>();
+        String[] colonne = c.getColumnNames();
+
+        String ssid;
+        String dettagli;
+        String level;
+        String password;
+        Double lat;
+        Double lon;
+
+        while (c.moveToNext()) {
+            try {
+                ssid = c.getString(c.getColumnIndexOrThrow(DBStrings.FIELD_SSID));
+            } catch (IllegalArgumentException e) {
+                ssid = "";
+            }
+
+            try {
+                dettagli = c.getString(c.getColumnIndexOrThrow(DBStrings.FIELD_Tipo));
+            } catch (IllegalArgumentException e) {
+                dettagli = "";
+            }
+
+            try {
+                level = c.getString(c.getColumnIndexOrThrow(DBStrings.FIELD_Db));
+            } catch (IllegalArgumentException e) {
+                level = "";
+            }
+
+            try {
+                password = c.getString(c.getColumnIndexOrThrow(DBStrings.FIELD_Password));
+            } catch (IllegalArgumentException e) {
+                password = "";
+            }
+
+            try {
+                lat = c.getDouble(c.getColumnIndexOrThrow(DBStrings.FIELD_Latitude));
+            } catch (IllegalArgumentException e) {
+                lat = 0.;
+            }
+
+            try {
+                lon = c.getDouble(c.getColumnIndexOrThrow(DBStrings.FIELD_Longitude));
+            } catch (IllegalArgumentException e) {
+                lon = 0.;
+            }
+
+            Rete tmp = new Rete(ssid, dettagli, level);
+            tmp.setPassword(password);
+            tmp.setLat(lat);
+            tmp.setLon(lon);
+
+            array.add(tmp);
+        }
+
+        return array;
     }
 }
