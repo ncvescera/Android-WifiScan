@@ -100,20 +100,22 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.dtab1:
-                Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+                Intent intent = new Intent(MainActivity.this, DbActivity.class);
                 startActivity(intent);
+
                 break;
             case R.id.dtab2:
-                switch (fc_counter){
+                switch (fc_counter) {
                     case 0:
-                        Log.d("TOASD_1", "IN TOAST");
                         Toast.makeText(MainActivity.this,"è in arrivo, scappa!", Toast.LENGTH_SHORT).show();
                         fc_counter = fc_counter +1;
                         break;
+
                     case 1:
                         Toast.makeText(MainActivity.this,"ti avevo avvertito...", Toast.LENGTH_SHORT).show();
                         fc_counter = fc_counter +1;
                         break;
+
                     case 2:
                         Intent intent2 = new Intent(MainActivity.this, FrocioCoroActivity.class);
                         startActivity(intent2);
@@ -128,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.dropdown_menu, menu);
+        
         return true;
     }
 
