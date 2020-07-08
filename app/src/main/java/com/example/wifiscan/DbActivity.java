@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.example.wifiscan.Adapters.WifiCursorAdapter;
 import com.example.wifiscan.DBManager.DBManager;
+import com.example.wifiscan.Utils.Rete;
 
 import java.util.ArrayList;
 

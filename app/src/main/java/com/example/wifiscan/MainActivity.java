@@ -17,12 +17,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.wifiscan.DBManager.DBManager;
+import com.example.wifiscan.Handlers.WifiHandler;
+import com.example.wifiscan.Utils.Rete;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private ListView listView;
-    private Wifi gestore;
+    private WifiHandler gestore;
     private ArrayList<Rete> dati;
     private Button buttonScan;
     private Button btn;
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         View actualView = getWindow().getDecorView().findViewById(android.R.id.content);
 
         // inizializzazione del gestore del wifi e della posizione
-        gestore = new Wifi(MainActivity.this,  actualView, dati);
+        gestore = new WifiHandler(MainActivity.this,  actualView, dati);
 
         // inizializzazione del bottone per la scanzione e dell'evento onClick
         buttonScan.setOnClickListener(new View.OnClickListener() {

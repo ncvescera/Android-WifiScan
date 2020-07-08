@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
-import com.example.wifiscan.Rete;
+import com.example.wifiscan.Utils.Rete;
 
 import java.util.ArrayList;
 

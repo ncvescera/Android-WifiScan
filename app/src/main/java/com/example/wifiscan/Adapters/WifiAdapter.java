@@ -1,4 +1,4 @@
-package com.example.wifiscan;
+package com.example.wifiscan.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.wifiscan.AlertBoxes.AlertBox;
+import com.example.wifiscan.MainActivity;
+import com.example.wifiscan.R;
+import com.example.wifiscan.Utils.Rete;
 
 import java.util.List;
 
@@ -25,7 +30,7 @@ public class WifiAdapter extends ArrayAdapter<Rete> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(R.layout.listview_row_rete, null);
+        convertView = inflater.inflate(R.layout.layout_arrayadapter, null);
 
         // inizializzo gli elementi della tabella
         TextView SSID       = (TextView) convertView.findViewById(R.id.SSID);

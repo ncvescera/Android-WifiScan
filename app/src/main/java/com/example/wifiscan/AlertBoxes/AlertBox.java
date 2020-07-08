@@ -1,4 +1,4 @@
-package com.example.wifiscan;
+package com.example.wifiscan.AlertBoxes;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,6 +9,10 @@ import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
+
+import com.example.wifiscan.MainActivity;
+import com.example.wifiscan.R;
+import com.example.wifiscan.Utils.Rete;
 
 public class AlertBox {
     private Context context;

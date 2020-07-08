@@ -1,4 +1,4 @@
-package com.example.wifiscan;
+package com.example.wifiscan.Handlers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,10 +12,15 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.wifiscan.MainActivity;
+import com.example.wifiscan.R;
+import com.example.wifiscan.Utils.Rete;
+import com.example.wifiscan.Adapters.WifiAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Wifi {
+public class WifiHandler {
     private MainActivity context;           // contesto dove andrà ad operare la classe
     private WifiManager manager;            // manager del wifi
     private BroadcastReceiver receiver;     // classe che gestirà le connessioni trovate
@@ -25,7 +30,7 @@ public class Wifi {
     private Button button;
     private View mainView;
 
-    public Wifi(final MainActivity context, View view, final ArrayList<Rete> dati) {
+    public WifiHandler(final MainActivity context, View view, final ArrayList<Rete> dati) {
         this.context = context;
         this.arrayList = dati;
         this.mainView = view;
@@ -69,7 +74,7 @@ public class Wifi {
                 locationHandler.requestUpdate();
 
                 // aggiorna la ListView con il nuovo Adapter
-                WifiAdapter adapter = new WifiAdapter(context,R.layout.listview_row_rete, arrayList);
+                WifiAdapter adapter = new WifiAdapter(context,R.layout.layout_arrayadapter, arrayList);
                 //ArrayAdapter<Rete> adapter = new ArrayAdapter<Rete>(context, android.R.layout.simple_list_item_1, arrayList);
                 listView.setAdapter(adapter);
             }

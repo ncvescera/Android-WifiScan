@@ -1,4 +1,4 @@
-package com.example.wifiscan;
+package com.example.wifiscan.Utils;
 
 import android.content.Context;
 import android.location.Address;

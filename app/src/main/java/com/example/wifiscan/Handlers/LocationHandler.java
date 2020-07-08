@@ -1,4 +1,4 @@
-package com.example.wifiscan;
+package com.example.wifiscan.Handlers;
 
 import android.Manifest;
 import android.content.Context;
@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.core.app.ActivityCompat;
+
+import com.example.wifiscan.R;
+import com.example.wifiscan.Utils.Rete;
 
 import java.util.ArrayList;
 

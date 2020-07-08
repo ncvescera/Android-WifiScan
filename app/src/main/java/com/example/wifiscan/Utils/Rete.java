@@ -1,4 +1,4 @@
-package com.example.wifiscan;
+package com.example.wifiscan.Utils;
 
 public class Rete {
     private String SSID;

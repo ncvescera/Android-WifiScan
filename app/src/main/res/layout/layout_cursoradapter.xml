@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/cursor_SSID"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".16"
+            android:text="SSID"/>
+
+        <TextView
+            android:id="@+id/cursor_dettagli"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".16"
+            android:text="Dettagli"/>
+
+        <TextView
+            android:id="@+id/cursor_level"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".16"
+            android:text="Level"/>
+
+        <TextView
+            android:id="@+id/cursor_password"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".16"
+            android:text="Password"/>
+
+        <TextView
+            android:id="@+id/cursor_lat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".16"
+            android:text="Password"/>
+
+        <TextView
+            android:id="@+id/cursor_lon"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".16"
+            android:text="Password"/>
+
+    </LinearLayout>
+</RelativeLayout>
