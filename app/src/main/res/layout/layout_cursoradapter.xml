@@ -26,8 +26,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".10"
-            android:text="Level"
-            android:gravity="left"/>
+            android:gravity="center|top"
+            android:text="Level" />
 
         <TextView
             android:id="@+id/cursor_password"
