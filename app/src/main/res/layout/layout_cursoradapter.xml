@@ -10,42 +10,37 @@
             android:id="@+id/cursor_SSID"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".16"
+            android:layout_weight=".25"
             android:text="SSID"/>
 
         <TextView
             android:id="@+id/cursor_dettagli"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".16"
-            android:text="Dettagli"/>
+            android:layout_weight=".25"
+            android:text="Dettagli"
+            android:gravity="right"/>
 
         <TextView
             android:id="@+id/cursor_level"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".16"
-            android:text="Level"/>
+            android:layout_weight=".10"
+            android:text="Level"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/cursor_password"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".16"
+            android:layout_weight=".20"
             android:text="Password"/>
 
         <TextView
-            android:id="@+id/cursor_lat"
+            android:id="@+id/cursor_position"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".16"
-            android:text="Password"/>
-
-        <TextView
-            android:id="@+id/cursor_lon"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".16"
+            android:layout_weight=".20"
             android:text="Password"/>
 
     </LinearLayout>

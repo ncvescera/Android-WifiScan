@@ -5,7 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DbActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".25"
+            android:text="SSID"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".25"
+            android:text="Dettagli"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".10"
+            android:text="Level"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".20"
+            android:text="Password"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".20"
+            android:text="Location"
+            android:gravity="center"/>
+
+
+
+    </LinearLayout>
     <ListView
         android:id="@+id/cursor_listview"
         android:layout_width="match_parent"
@@ -15,6 +55,6 @@
         android:layout_marginRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
