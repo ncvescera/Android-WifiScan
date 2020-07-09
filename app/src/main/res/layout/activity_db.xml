@@ -44,14 +44,15 @@
             android:text="Db"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:gravity="center"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".25"
-            android:gravity="left"
-            android:text="Password"
+            android:gravity="center"
+            android:text="Pwd"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="20dp"
             android:textStyle="bold" />
