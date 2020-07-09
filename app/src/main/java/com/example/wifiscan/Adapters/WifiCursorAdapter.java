@@ -52,6 +52,6 @@ public class WifiCursorAdapter extends CursorAdapter {
 
         HumanPosition converter = new HumanPosition(context, lat, lon);
         position.setText(converter.getPosition());
-        
+
     }
 }
