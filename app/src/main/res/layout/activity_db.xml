@@ -5,47 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DbActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/cursor_listview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".25"
+            android:layout_weight=".20"
+            android:gravity="left"
             android:text="SSID"
-            android:gravity="center"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".25"
+            android:layout_weight=".20"
+            android:gravity="left"
             android:text="Dettagli"
-            android:gravity="center"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".10"
-            android:text="Level"/>
+            android:text="Db"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".20"
+            android:layout_weight=".25"
+            android:gravity="left"
             android:text="Password"
-            android:gravity="center"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".20"
+            android:layout_weight=".25"
+            android:gravity="left"
             android:text="Location"
-            android:gravity="center"/>
-
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
+
     <ListView
         android:id="@+id/cursor_listview"
         android:layout_width="match_parent"
@@ -55,6 +78,6 @@
         android:layout_marginRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
