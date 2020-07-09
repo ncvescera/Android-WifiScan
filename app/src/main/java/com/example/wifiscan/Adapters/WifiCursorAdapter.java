@@ -1,47 +1,57 @@
 package com.example.wifiscan.Adapters;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+import com.example.wifiscan.DBManager.DBStrings;
 import com.example.wifiscan.R;
+import com.example.wifiscan.Utils.HumanPosition;
 import com.example.wifiscan.Utils.Rete;
 
 import java.util.List;
 
-public class WifiCursorAdapter extends ArrayAdapter<Rete> {
-    private List<Rete> objects;
+public class WifiCursorAdapter extends CursorAdapter {
+    private Context context;
 
-    public WifiCursorAdapter(Context context, int textViewResourceId, List<Rete> objects) {
-        super(context, textViewResourceId, objects);
+    public WifiCursorAdapter(Context context, Cursor c, int flags) {
+        super(context, c, flags);
 
-        //this.objects = objects;
+        this.context = context;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(R.layout.layout_cursoradapter, null);
+    public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
+        return LayoutInflater.from(context).inflate(R.layout.layout_cursoradapter, viewGroup, false);
+    }
 
-        TextView SSID       = (TextView) convertView.findViewById(R.id.cursor_SSID);
-        TextView dettagli   = (TextView) convertView.findViewById(R.id.cursor_dettagli);
-        TextView level      = (TextView) convertView.findViewById(R.id.cursor_level);
-        TextView password   = (TextView) convertView.findViewById(R.id.cursor_password);
-        TextView lat   = (TextView) convertView.findViewById(R.id.cursor_lat);
-        TextView lon   = (TextView) convertView.findViewById(R.id.cursor_lon);
+    @Override
+    public void bindView(View view, Context context, Cursor cursor) {
+        TextView SSID       = (TextView) view.findViewById(R.id.cursor_SSID);
+        TextView dettagli   = (TextView) view.findViewById(R.id.cursor_dettagli);
+        TextView level      = (TextView) view.findViewById(R.id.cursor_level);
+        TextView password   = (TextView) view.findViewById(R.id.cursor_password);
+        TextView position   = (TextView) view.findViewById(R.id.cursor_position);
 
-        Rete obj = getItem(position);
+        //TextView lat   = (TextView) view.findViewById(R.id.cursor_lat);
+        //TextView lon   = (TextView) view.findViewById(R.id.cursor_lon);
 
-        SSID.setText(obj.getSSID());
-        dettagli.setText(obj.getDettagli());
-        level.setText(obj.getLevel());
-        password.setText(obj.getPassword());
-        lat.setText(Double.toString(obj.getLat()));
-        lon.setText(Double.toString(obj.getLon()));
 
-        return convertView;
+        SSID.setText(cursor.getString(cursor.getColumnIndex(DBStrings.FIELD_SSID)));
+        dettagli.setText(cursor.getString(cursor.getColumnIndex(DBStrings.FIELD_Tipo)));
+        level.setText(cursor.getString(cursor.getColumnIndex(DBStrings.FIELD_Db)));
+        password.setText(cursor.getString(cursor.getColumnIndex(DBStrings.FIELD_Password)));
+
+        Double lat = cursor.getDouble(cursor.getColumnIndex(DBStrings.FIELD_Latitude));
+        Double lon = cursor.getDouble(cursor.getColumnIndex(DBStrings.FIELD_Longitude));
+
+        HumanPosition converter = new HumanPosition(context, lat, lon);
+        position.setText(converter.getPosition());
+        
     }
 }

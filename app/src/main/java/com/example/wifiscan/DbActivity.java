@@ -28,7 +28,7 @@ public class DbActivity extends AppCompatActivity {
 
         ArrayList<Rete> dati = manager.cursorToArray(c);
 
-        WifiCursorAdapter adapter = new WifiCursorAdapter(getApplicationContext(), R.layout.layout_cursoradapter, dati);
+        WifiCursorAdapter adapter = new WifiCursorAdapter(getApplicationContext(), c, 0);
         listView.setAdapter(adapter);
     }
 }

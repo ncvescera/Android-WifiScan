@@ -64,7 +64,8 @@ public class DBManager {
         Cursor crs=null;
         try {
             SQLiteDatabase db=dbhelper.getReadableDatabase();
-            crs = db.query(DBStrings.TBL_NAME, null, null, null, null, null, null, null);
+            //crs = db.query(DBStrings.TBL_NAME, null, null, null, null, null, null, null);
+            crs = db.rawQuery("SELECT ROWID as _id, * FROM " + DBStrings.TBL_NAME, null);
         } catch(SQLiteException sqle) {
             return null;
         }
