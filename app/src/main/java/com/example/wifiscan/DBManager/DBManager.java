@@ -92,6 +92,16 @@ public class DBManager {
         return cursor;
     }
 
+    public void update(String campo, String data){
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        try{
+            Log.d("Query", "UPDATE " + DBStrings.TBL_NAME + " SET " + DBStrings.FIELD_Password + " = " + data + " WHERE " + DBStrings.FIELD_SSID + " = " + "'" + campo + "'");
+            db.execSQL("UPDATE " + DBStrings.TBL_NAME + " SET " + DBStrings.FIELD_Password + " = " + "'" + data + "'" + " WHERE " + DBStrings.FIELD_SSID + " = " + "'" + campo + "'");
+        }catch(SQLiteException exec){
+            return;
+        }
+    }
+
     public ArrayList<Rete> cursorToArray(Cursor c) {
         ArrayList<Rete> array = new ArrayList<Rete>();
         String[] colonne = c.getColumnNames();

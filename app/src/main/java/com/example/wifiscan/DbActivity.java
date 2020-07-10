@@ -42,7 +42,7 @@ public class DbActivity extends AppCompatActivity {
 
         ArrayList<Rete> dati = manager.cursorToArray(cursor);
 
-        adapter = new WifiCursorAdapter(getApplicationContext(), cursor, 0);
+        adapter = new WifiCursorAdapter(this, cursor, 0);
         listView.setAdapter(adapter);
 
         elimina.setOnClickListener(new View.OnClickListener() {
