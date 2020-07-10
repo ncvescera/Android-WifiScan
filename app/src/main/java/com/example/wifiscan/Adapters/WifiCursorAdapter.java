@@ -47,6 +47,21 @@ public class WifiCursorAdapter extends CursorAdapter {
         level.setText(cursor.getString(cursor.getColumnIndex(DBStrings.FIELD_Db)));
         password.setText(cursor.getString(cursor.getColumnIndex(DBStrings.FIELD_Password)));
 
+        /*password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // disabilita i bottoni
+                btn.setEnabled(false);
+                buttonScan.setEnabled(false);
+
+                // elimina le righie vecchie per evitare di poter far casino con i bottoni
+                listView.setAdapter(null);
+
+                // avvia la scnazione del wifi
+                gestore.scanWifi();
+            }
+        });*/
+
         Double lat = cursor.getDouble(cursor.getColumnIndex(DBStrings.FIELD_Latitude));
         Double lon = cursor.getDouble(cursor.getColumnIndex(DBStrings.FIELD_Longitude));
 

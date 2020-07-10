@@ -50,7 +50,7 @@ public class WifiAdapter extends ArrayAdapter<Rete> {
         pwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Prendo il relativo oggetto del bottone
+               // Prendo il relativo oggetto del bottone
                 Rete tmp = objects.get(position);
 
                 // inizializza l'AlertBox che modificherà la password dell'oggetto

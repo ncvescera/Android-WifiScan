@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import com.example.wifiscan.Adapters.WifiCursorAdapter;
 import com.example.wifiscan.DBManager.DBManager;
+import com.example.wifiscan.DBManager.DBStrings;
 import com.example.wifiscan.Utils.Rete;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class DbActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.cursor_listview);
         manager = new DBManager(getApplicationContext());
+
+        manager.deleteAllDataTable(DBStrings.TBL_NAME);
 
         Cursor c = manager.query();
 

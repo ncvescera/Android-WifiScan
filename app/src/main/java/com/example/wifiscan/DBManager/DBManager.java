@@ -16,6 +16,7 @@ public class DBManager {
 
     public DBManager(Context ctx) {
         dbhelper=new DBHelper(ctx);
+
     }
 
     public boolean save(String SSID, String tipo, int level, String password, Double lat, Double lon) {
@@ -41,6 +42,12 @@ public class DBManager {
         }
 
         return true;
+    }
+
+    public void deleteAllDataTable(String tableName) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+
+        db.execSQL("DELETE FROM " + tableName);
     }
 
     public boolean delete(long id) {
