@@ -19,7 +19,7 @@ public class DbActivity extends AppCompatActivity {
     private ListView listView;
     private DBManager manager;
     private Button elimina;
-
+    private WifiCursorAdapter adapter;
 
 
     @Override
@@ -31,18 +31,19 @@ public class DbActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.cursor_listview);
         manager = new DBManager(getApplicationContext());
 
-        manager.deleteAllDataTable(DBStrings.TBL_NAME);
-
         Cursor c = manager.query();
 
         ArrayList<Rete> dati = manager.cursorToArray(c);
 
-        WifiCursorAdapter adapter = new WifiCursorAdapter(getApplicationContext(), c, 0);
+        adapter = new WifiCursorAdapter(getApplicationContext(), c, 0);
         listView.setAdapter(adapter);
 
         elimina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // aggiungere alertbox
+                manager.deleteAllDataTable(DBStrings.TBL_NAME);
+                listView.setAdapter(null);
 
             }
         });

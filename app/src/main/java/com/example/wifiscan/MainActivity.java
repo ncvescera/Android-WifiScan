@@ -72,12 +72,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Bottone Temporaneo per dubg
+        // Bottone per salvare i dati nel database
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 for(Rete elem : dati) {
                     Log.d("DATI", elem.toString());
+
+                    Toast.makeText(MainActivity.this,"Salvo i dati ...", Toast.LENGTH_SHORT).show();
                     boolean result = database.save(elem.getSSID(), elem.getDettagli(), Integer.parseInt(elem.getLevel()), elem.getPassword(), elem.getLat(), elem.getLon());
                 }
 
