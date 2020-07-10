@@ -80,6 +80,18 @@ public class DBManager {
         return crs;
     }
 
+    public Cursor search(String s){
+        Cursor cursor = null;
+        try{
+            SQLiteDatabase db=dbhelper.getReadableDatabase();
+            //crs = db.query(DBStrings.TBL_NAME, null, null, null, null, null, null, null);
+            cursor = db.rawQuery("SELECT ROWID as _id, * FROM " + DBStrings.TBL_NAME + " WHERE " + DBStrings.FIELD_SSID + " LIKE '%"+s +"%'",null);
+        }catch (SQLiteException e){
+            return null;
+        }
+        return cursor;
+    }
+
     public ArrayList<Rete> cursorToArray(Cursor c) {
         ArrayList<Rete> array = new ArrayList<Rete>();
         String[] colonne = c.getColumnNames();

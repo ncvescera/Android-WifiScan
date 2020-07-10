@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,7 +27,7 @@ public class DbActivity extends AppCompatActivity {
     private DBManager manager;
     private Button elimina;
     private WifiCursorAdapter adapter;
-
+    private Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +38,11 @@ public class DbActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.cursor_listview);
         manager = new DBManager(getApplicationContext());
 
-        Cursor c = manager.query();
+        cursor = manager.query();
 
-        ArrayList<Rete> dati = manager.cursorToArray(c);
+        ArrayList<Rete> dati = manager.cursorToArray(cursor);
 
-        adapter = new WifiCursorAdapter(getApplicationContext(), c, 0);
+        adapter = new WifiCursorAdapter(getApplicationContext(), cursor, 0);
         listView.setAdapter(adapter);
 
         elimina.setOnClickListener(new View.OnClickListener() {
@@ -65,11 +66,21 @@ public class DbActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
 
+                Log.d("Query_test", s);
+                cursor = manager.search(s);
+                adapter.changeCursor(cursor);
+                adapter.notifyDataSetChanged();
                 return false;
+
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
+                if( s.equals("")){
+                    cursor = manager.query();
+                    adapter.changeCursor(cursor);
+                    adapter.notifyDataSetChanged();
+                }
                 return false;
             }
         });
