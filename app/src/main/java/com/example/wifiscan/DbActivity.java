@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -21,12 +23,16 @@ import java.util.ArrayList;
 public class DbActivity extends AppCompatActivity {
     private ListView listView;
     private DBManager manager;
+    private Button elimina;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
 
+        elimina = findViewById(R.id.elimina_db);
         listView = (ListView) findViewById(R.id.cursor_listview);
         manager = new DBManager(getApplicationContext());
 
@@ -36,6 +42,13 @@ public class DbActivity extends AppCompatActivity {
 
         WifiCursorAdapter adapter = new WifiCursorAdapter(getApplicationContext(), c, 0);
         listView.setAdapter(adapter);
+
+        elimina.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
