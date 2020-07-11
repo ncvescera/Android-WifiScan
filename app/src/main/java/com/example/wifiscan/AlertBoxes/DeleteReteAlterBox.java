@@ -44,7 +44,7 @@ public class DeleteReteAlterBox {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dbManager.deleteRete(wifiName);
-                
+
                 Cursor dati = dbManager.query();
                 adapter.changeCursor(dati);
                 adapter.notifyDataSetChanged();
