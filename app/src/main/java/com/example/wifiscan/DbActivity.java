@@ -1,13 +1,18 @@
 package com.example.wifiscan;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.Application;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +21,7 @@ import android.widget.SearchView;
 
 
 import com.example.wifiscan.Adapters.WifiCursorAdapter;
+import com.example.wifiscan.AlertBoxes.DeleteReteAlterBox;
 import com.example.wifiscan.DBManager.DBManager;
 import com.example.wifiscan.DBManager.DBStrings;
 import com.example.wifiscan.Utils.Rete;
@@ -28,19 +34,33 @@ public class DbActivity extends AppCompatActivity {
     private Button elimina;
     private WifiCursorAdapter adapter;
     private Cursor cursor;
+    private Activity contesto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
+        this.contesto = this;
 
         elimina = findViewById(R.id.elimina_db);
         listView = (ListView) findViewById(R.id.cursor_listview);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int pos, long id) {
+                Cursor tmp = (Cursor) listView.getItemAtPosition(pos);
+                String ssid = tmp.getString(cursor.getColumnIndex(DBStrings.FIELD_SSID));
+
+                Log.d("LONG_CLICK_TEST", ssid);
+
+                new DeleteReteAlterBox(contesto, ssid, adapter);
+
+                return true;
+            }
+        });
+
         manager = new DBManager(getApplicationContext());
 
         cursor = manager.query();
-
-        ArrayList<Rete> dati = manager.cursorToArray(cursor);
 
         adapter = new WifiCursorAdapter(this, cursor, 0);
         listView.setAdapter(adapter);

@@ -50,6 +50,15 @@ public class DBManager {
         db.execSQL("DELETE FROM " + tableName);
     }
 
+    public void deleteRete(String ssid) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+
+        try {
+            db.execSQL("DELETE FROM " + DBStrings.TBL_NAME + " WHERE " + DBStrings.FIELD_SSID + " = '" + ssid + "'");
+        } catch (SQLiteException e) {
+            return;
+        }
+    }
     public boolean delete(long id) {
     /*
         SQLiteDatabase db=dbhelper.getWritableDatabase();
