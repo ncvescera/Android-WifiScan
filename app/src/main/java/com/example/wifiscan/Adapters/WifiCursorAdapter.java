@@ -88,8 +88,8 @@ public class WifiCursorAdapter extends CursorAdapter {
         Double lat = cursor.getDouble(cursor.getColumnIndex(DBStrings.FIELD_Latitude));
         Double lon = cursor.getDouble(cursor.getColumnIndex(DBStrings.FIELD_Longitude));
 
-        HumanPosition converter = new HumanPosition(context, lat, lon);
-        position.setText(converter.getPosition());
+        HumanPosition converter = new HumanPosition(context);
+        position.setText(converter.coordToString(lat, lon));
 
     }
 }

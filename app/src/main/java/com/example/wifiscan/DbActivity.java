@@ -24,6 +24,7 @@ import com.example.wifiscan.Adapters.WifiCursorAdapter;
 import com.example.wifiscan.AlertBoxes.DeleteReteAlterBox;
 import com.example.wifiscan.DBManager.DBManager;
 import com.example.wifiscan.DBManager.DBStrings;
+import com.example.wifiscan.Utils.HumanPosition;
 import com.example.wifiscan.Utils.Rete;
 
 import java.util.ArrayList;
@@ -90,6 +91,14 @@ public class DbActivity extends AppCompatActivity {
                 cursor = manager.search(s);
                 adapter.changeCursor(cursor);
                 adapter.notifyDataSetChanged();
+
+                HumanPosition converter = new HumanPosition(contesto);
+                ArrayList<Double> dati = converter.stringToCoord(s);
+                if(dati != null) {
+                    Log.d("CONVERSIONE_TEST", "" + dati.get(0));
+                    Log.d("CONVERSIONE_TEST", "" + dati.get(1));
+                }
+
                 return false;
 
             }
