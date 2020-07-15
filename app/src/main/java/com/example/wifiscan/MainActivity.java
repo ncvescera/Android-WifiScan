@@ -3,9 +3,11 @@ package com.example.wifiscan;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
@@ -31,10 +33,13 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Rete> dati;
     private Button buttonScan;
     private Button btn;
+    private Activity a;
 
     private DBManager database;
 
     // PER IL WIFI SCAN DEVE ESSERE ABILITATA LA GEOLOCALIZZAZIONE E IL WIFI
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         database = new DBManager(MainActivity.this.getApplicationContext());
+
+        a = this;
 
         // inizializzazione della ListView
         listView = findViewById(R.id.view_scan);
@@ -63,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
         buttonScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int permissionCheck = ContextCompat.checkSelfPermission(view.getContext(), Manifest.permission.ACCESS_FINE_LOCATION);
+                if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1 );
+                        return;
+                }
+
                 // disabilita i bottoni
                 btn.setEnabled(false);
                 buttonScan.setEnabled(false);
@@ -79,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                
                 btn.setEnabled(false);
                 for(Rete elem : dati) {
                     Log.d("DATI", elem.toString());
