@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+
                 btn.setEnabled(false);
                 for(Rete elem : dati) {
                     Log.d("DATI", elem.toString());

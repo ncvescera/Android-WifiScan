@@ -67,6 +67,8 @@ public class HumanPosition {
             List<Address> address = geoCoder.getFromLocationName(nome, 1);
 
             int maxLines = address.get(0).getMaxAddressLineIndex();
+
+            Log.d("TEST", ""+maxLines);
             result.add(address.get(0).getLatitude());
             result.add(address.get(0).getLongitude());
             /*for (int i=0; i <= maxLines; i++) {
@@ -83,6 +85,8 @@ public class HumanPosition {
             return null;
         } catch (NullPointerException e) {
             Log.d("TEST_COORD", "ERRIR:NULLPOINTER");
+            return null;
+        } catch (IndexOutOfBoundsException e) {
             return null;
         }
 
