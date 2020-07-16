@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.LocationManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
@@ -30,7 +31,7 @@ public class WifiHandler {
     private Button button;
     private View mainView;
 
-    public WifiHandler(final MainActivity context, View view, final ArrayList<Rete> dati) {
+    public WifiHandler(final MainActivity context, final View view, final ArrayList<Rete> dati) {
         this.context = context;
         this.arrayList = dati;
         this.mainView = view;
@@ -70,7 +71,7 @@ public class WifiHandler {
                 Toast.makeText(context, "Getting location ...", Toast.LENGTH_SHORT).show();
 
                 // crea l'handler per la geolocalizzazione e acquisisce i dati
-                LocationHandler locationHandler = new LocationHandler(context, dati, mainView);
+                LocationHandler locationHandler = new LocationHandler(context, arrayList, mainView);
                 locationHandler.requestUpdate();
 
                 // aggiorna la ListView con il nuovo Adapter
@@ -82,7 +83,17 @@ public class WifiHandler {
     }
 
     public void scanWifi() {
+        // controlla se il WiFi e la posizione sono attive
         check_wifi_state();
+        LocationManager locationManager = (LocationManager) this.context.getSystemService(Context.LOCATION_SERVICE);
+        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Toast.makeText(context, "GPS Disabilitato, abilitarlo !", Toast.LENGTH_SHORT).show();
+
+            // riabilita il bottone per la scanzione
+            Button btnscan = (Button) mainView.findViewById(R.id.btn_scan);
+            btnscan.setEnabled(true);
+            return;
+        }
 
         // pulizia dell'array
         this.arrayList.clear();

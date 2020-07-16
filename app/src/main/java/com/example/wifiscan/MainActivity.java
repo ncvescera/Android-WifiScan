@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         buttonScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // controlla se ha i permessi per il GPS in caso li abilita chiedendo all'utente
                 int permissionCheck = ContextCompat.checkSelfPermission(view.getContext(), Manifest.permission.ACCESS_FINE_LOCATION);
                 if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1 );

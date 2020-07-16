@@ -6,10 +6,12 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 
 import com.example.wifiscan.R;
