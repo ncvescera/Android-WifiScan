@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 
 import com.example.wifiscan.Adapters.WifiCursorAdapter;
@@ -88,16 +89,24 @@ public class DbActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String s) {
 
                 Log.d("Query_test", s);
-                cursor = manager.search(s);
-                adapter.changeCursor(cursor);
-                adapter.notifyDataSetChanged();
+
 
                 HumanPosition converter = new HumanPosition(contesto);
                 ArrayList<Double> dati = converter.stringToCoord(s);
                 if(dati != null) {
                     Log.d("CONVERSIONE_TEST", "" + dati.get(0));
                     Log.d("CONVERSIONE_TEST", "" + dati.get(1));
+
+                    cursor = manager.search(dati.get(0), dati.get(1));
+                    adapter.changeCursor(cursor);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(contesto,"Posizione inesistente :/", Toast.LENGTH_SHORT).show();
                 }
+
+
+
+                // Select * From table order by ((lat-dati.get(0))*(lat-dati.get(0)) + (lon-dati.get(1))*(lon-dati.get(1))) ASC
 
                 return false;
 

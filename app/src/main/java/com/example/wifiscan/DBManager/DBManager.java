@@ -101,6 +101,18 @@ public class DBManager {
         return cursor;
     }
 
+    public Cursor search(Double lat, Double lon){
+        Cursor cursor = null;
+        try{
+            SQLiteDatabase db=dbhelper.getReadableDatabase();
+            //crs = db.query(DBStrings.TBL_NAME, null, null, null, null, null, null, null);
+            cursor = db.rawQuery("SELECT ROWID as _id, * FROM " + DBStrings.TBL_NAME + " ORDER BY " + "((" + DBStrings.FIELD_Latitude + "-" + lat + ")*("+DBStrings.FIELD_Latitude + "-" + lat + ") + (" + DBStrings.FIELD_Longitude + "-" + lon + ")*(" + DBStrings.FIELD_Longitude + "-" + lon + ")) ASC",null);
+        }catch (SQLiteException e){
+            return null;
+        }
+        return cursor;
+    }
+
     public void update(String campo, String data){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         try{
