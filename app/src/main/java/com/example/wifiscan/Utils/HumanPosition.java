@@ -58,35 +58,32 @@ public class HumanPosition {
     }
 
     public ArrayList<Double> stringToCoord(String nome) {
-        // prova la conversione, in caso di errore la stringa sarà nulla ("")
+        // inizializzo l'array dove andranno a finire i dati
         ArrayList<Double> result = new ArrayList<Double>();
 
         try {
-            // tutta sta roba si fa perchè l'indirizzo potrebbe essere troppo lungo e quindi viene diviso in varie righe (?)
-            // di solito dentro la lista address c'è solo un elemento
+            // prova ad effettuare la conversione
             List<Address> address = geoCoder.getFromLocationName(nome, 1);
 
             int maxLines = address.get(0).getMaxAddressLineIndex();
 
             Log.d("TEST", ""+maxLines);
+
+            // aggiunge all'array prima la latitudine e poi la longitudine
             result.add(address.get(0).getLatitude());
             result.add(address.get(0).getLongitude());
-            /*for (int i=0; i <= maxLines; i++) {
-                Log.d("CONVERTING_TEST", ""+address.get(0).getLatitude());
-                Log.d("CONVERTING_TEST", ""+address.get(0).getLongitude());
-
-                String addressStr = address.get(0).getAddressLine(i);
-                builder.append(addressStr);
-                builder.append(" ");
-            }*/
 
         } catch (IOException e) {
             Log.d("TEST_COORD", "ERRIR:IO");
+
             return null;
         } catch (NullPointerException e) {
             Log.d("TEST_COORD", "ERRIR:NULLPOINTER");
+
             return null;
         } catch (IndexOutOfBoundsException e) {
+            Log.d("TEST_COORD", "ERRIR:INDEXOUTBOUND");
+
             return null;
         }
 

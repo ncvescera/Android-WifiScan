@@ -41,7 +41,6 @@ public class WifiHandler {
 
         this.manager = (WifiManager) this.context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-
         check_wifi_state();
 
         this.receiver = new BroadcastReceiver() {

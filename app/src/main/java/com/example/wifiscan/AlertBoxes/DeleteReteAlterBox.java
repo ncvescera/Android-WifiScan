@@ -6,16 +6,9 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Adapter;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.wifiscan.Adapters.WifiCursorAdapter;
 import com.example.wifiscan.DBManager.DBManager;
-import com.example.wifiscan.R;
 
 public class DeleteReteAlterBox {
     private WifiCursorAdapter adapter;
@@ -36,15 +29,16 @@ public class DeleteReteAlterBox {
         // inizializzazione dell'AlertBox
         builder = new AlertDialog.Builder(this.context);
 
-
         // aggiunta di elementi all'AlertBox
         builder.setTitle("Elimina Rete");
         builder.setMessage("Sei sicuro di voler eliminare la rete ?");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                // elimino la rete
                 dbManager.deleteRete(wifiName);
 
+                // eseguo una query di tutti i dati per aggiornare il cursore e la listview
                 Cursor dati = dbManager.query();
                 adapter.changeCursor(dati);
                 adapter.notifyDataSetChanged();

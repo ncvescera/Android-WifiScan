@@ -1,7 +1,6 @@
 package com.example.wifiscan.AlertBoxes;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.Log;
@@ -10,12 +9,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-//import androidx.appcompat.app.AlertDialog;
 import android.app.AlertDialog;
 
 import com.example.wifiscan.DBManager.DBManager;
-import com.example.wifiscan.DbActivity;
-import com.example.wifiscan.MainActivity;
 import com.example.wifiscan.R;
 
 public class UpdatePasswordAlertBox {
@@ -51,7 +47,10 @@ public class UpdatePasswordAlertBox {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Log.d("TEST_OK", "OK " + text.getText());
+                // cambio la password nel database
                 dbManager.update(wifiName, text.getText().toString());
+
+                // modifico la password mostrata a video nella listview
                 textView.setText(text.getText());
               //  obj.setPassword(text.getText().toString());
             }

@@ -1,6 +1,5 @@
 package com.example.wifiscan;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;

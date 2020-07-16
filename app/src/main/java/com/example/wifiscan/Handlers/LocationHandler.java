@@ -6,12 +6,10 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 
 import com.example.wifiscan.R;
@@ -53,13 +51,6 @@ public class LocationHandler {
                     elem.setLat(location.getLatitude());
                     elem.setLon(location.getLongitude());
                 }
-
-                // Con questa classe trasformo le coordinate (Double) in una stringa human-readable (String)
-                // Potrebbe tornare utile
-                /*
-                HumanPosition humanPosition = new HumanPosition(context, location.getLatitude(), location.getLongitude());
-                Log.d("TEST_HUMAN", humanPosition.getPosition());
-                */
 
                 // riabilita il bottone per risolvere problemi di sincronizzazione
                 button.setEnabled(true);

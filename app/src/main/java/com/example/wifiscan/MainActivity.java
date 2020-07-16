@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat;
 
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
@@ -33,22 +32,18 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Rete> dati;
     private Button buttonScan;
     private Button btn;
-    private Activity a;
 
     private DBManager database;
 
     // PER IL WIFI SCAN DEVE ESSERE ABILITATA LA GEOLOCALIZZAZIONE E IL WIFI
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // inizializzo il gestore del database
         database = new DBManager(MainActivity.this.getApplicationContext());
-
-        a = this;
 
         // inizializzazione della ListView
         listView = findViewById(R.id.view_scan);
@@ -93,26 +88,17 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // disabilita se stesso
                 btn.setEnabled(false);
+
+                Toast.makeText(MainActivity.this,"Salvo i dati ...", Toast.LENGTH_SHORT).show();
+
+                // salva i dati all'interno del database
                 for(Rete elem : dati) {
                     Log.d("DATI", elem.toString());
 
-                    Toast.makeText(MainActivity.this,"Salvo i dati ...", Toast.LENGTH_SHORT).show();
                     boolean result = database.save(elem.getSSID(), elem.getDettagli(), Integer.parseInt(elem.getLevel()), elem.getPassword(), elem.getLat(), elem.getLon());
                 }
-
-                /* Per vedere il contenuto del database
-
-                Cursor a = database.query();
-
-                while (a.moveToNext()) {
-                    Log.d("DATA_QUERY", a.getString(a.getColumnIndex(DBStrings.FIELD_SSID)) + " " + a.getString(a.getColumnIndex(DBStrings.FIELD_Password)));
-                }
-
-                a.close();
-                */
-
             }
         });
     }
@@ -122,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.dtab1:
+            case R.id.dtab1:    // passa a DbActivity
                 Intent intent = new Intent(MainActivity.this, DbActivity.class);
                 startActivity(intent);
 

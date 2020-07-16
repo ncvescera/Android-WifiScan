@@ -59,29 +59,18 @@ public class DBManager {
             return;
         }
     }
-    public boolean delete(long id) {
-    /*
-        SQLiteDatabase db=dbhelper.getWritableDatabase();
-        try
-        {
-            if (db.delete(DBStrings.TBL_NAME, DBStrings.FIELD_ID+"=?", new String[]{Long.toString(id)})>0)
-                return true;
-            return false;
-        }
-        catch (SQLiteException sqle)
-        {
-            return false;
-        }
-        */
-        return true;
-    }
 
     public Cursor query() {
         Cursor crs=null;
+
+        // seleziona tutti i dati dal database
         try {
+            // prendo l'istanza del database
             SQLiteDatabase db=dbhelper.getReadableDatabase();
-            //crs = db.query(DBStrings.TBL_NAME, null, null, null, null, null, null, null);
+
+            // eseguo la query
             crs = db.rawQuery("SELECT ROWID as _id, * FROM " + DBStrings.TBL_NAME, null);
+            //crs = db.query(DBStrings.TBL_NAME, null, null, null, null, null, null, null);
         } catch(SQLiteException sqle) {
             return null;
         }
@@ -91,11 +80,15 @@ public class DBManager {
 
     public Cursor search(String s){
         Cursor cursor = null;
+
+        // cerca per SSID le reti
         try{
+            // prendo l'istanza del database
             SQLiteDatabase db=dbhelper.getReadableDatabase();
-            //crs = db.query(DBStrings.TBL_NAME, null, null, null, null, null, null, null);
+
             cursor = db.rawQuery("SELECT ROWID as _id, * FROM " + DBStrings.TBL_NAME + " WHERE " + DBStrings.FIELD_SSID + " LIKE '%"+s +"%'",null);
-        }catch (SQLiteException e){
+            //crs = db.query(DBStrings.TBL_NAME, null, null, null, null, null, null, null);
+        } catch (SQLiteException e){
             return null;
         }
         return cursor;
@@ -103,22 +96,31 @@ public class DBManager {
 
     public Cursor search(Double lat, Double lon){
         Cursor cursor = null;
+
+        // cerca le reti più vicine alla posizione data
         try{
+            // prendo l'istanza del database
             SQLiteDatabase db=dbhelper.getReadableDatabase();
-            //crs = db.query(DBStrings.TBL_NAME, null, null, null, null, null, null, null);
+
             cursor = db.rawQuery("SELECT ROWID as _id, * FROM " + DBStrings.TBL_NAME + " ORDER BY " + "((" + DBStrings.FIELD_Latitude + "-" + lat + ")*("+DBStrings.FIELD_Latitude + "-" + lat + ") + (" + DBStrings.FIELD_Longitude + "-" + lon + ")*(" + DBStrings.FIELD_Longitude + "-" + lon + ")) ASC",null);
-        }catch (SQLiteException e){
+            //crs = db.query(DBStrings.TBL_NAME, null, null, null, null, null, null, null);
+        } catch (SQLiteException e){
             return null;
         }
+
         return cursor;
     }
 
     public void update(String campo, String data){
+        // prendo l'istanza del database
         SQLiteDatabase db = dbhelper.getWritableDatabase();
+
+        // modifica la password di una rete
         try{
             Log.d("Query", "UPDATE " + DBStrings.TBL_NAME + " SET " + DBStrings.FIELD_Password + " = " + data + " WHERE " + DBStrings.FIELD_SSID + " = " + "'" + campo + "'");
+
             db.execSQL("UPDATE " + DBStrings.TBL_NAME + " SET " + DBStrings.FIELD_Password + " = " + "'" + data + "'" + " WHERE " + DBStrings.FIELD_SSID + " = " + "'" + campo + "'");
-        }catch(SQLiteException exec){
+        } catch(SQLiteException exec){
             return;
         }
     }
