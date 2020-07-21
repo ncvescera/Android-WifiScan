@@ -1,4 +1,4 @@
-package com.example.wifiscan;
+package com.example.wifiscan.Utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;

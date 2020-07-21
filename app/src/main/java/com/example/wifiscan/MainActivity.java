@@ -10,7 +10,6 @@ import android.Manifest;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.wifiscan.DBManager.DBManager;
 import com.example.wifiscan.Handlers.WifiHandler;
+import com.example.wifiscan.Utils.CSVFile;
 import com.example.wifiscan.Utils.Rete;
 
 import java.io.InputStream;
