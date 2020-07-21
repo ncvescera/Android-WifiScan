@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case 2:
-                        Intent intent2 = new Intent(MainActivity.this, FrocioCoroActivity.class);
+                        Intent intent2 = new Intent(MainActivity.this, FCActivity.class);
                         startActivity(intent2);
                         fc_counter = fc_counter +1;
                         break;

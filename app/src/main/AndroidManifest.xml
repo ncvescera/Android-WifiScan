@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FrocioCoroActivity"
+            android:name=".FCActivity"
             android:label="Il Regno di F.C."
             android:parentActivityName=".MainActivity" >
             <meta-data

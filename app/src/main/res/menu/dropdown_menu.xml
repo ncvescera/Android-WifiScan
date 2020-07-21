@@ -7,7 +7,7 @@
         app:showAsAction="never" />
     <item android:id="@+id/dtab2"
         android:icon="@drawable/ic_icon"
-        android:title="C'è qualcosa serpeggiante"
+        android:title=" "
         app:showAsAction="never" />
 
 </menu>
