@@ -10,6 +10,7 @@ import android.Manifest;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,7 +25,9 @@ import com.example.wifiscan.DBManager.DBManager;
 import com.example.wifiscan.Handlers.WifiHandler;
 import com.example.wifiscan.Utils.Rete;
 
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private ListView listView;
@@ -114,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
             case R.id.dtab2:
+                csvPopulate();
                 switch (fc_counter) {
                     case 0:
                         Toast.makeText(MainActivity.this,"è in arrivo, scappa!", Toast.LENGTH_SHORT).show();
@@ -141,6 +145,16 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.dropdown_menu, menu);
         
         return true;
+    }
+
+    private void csvPopulate() {
+        InputStream inputStream = getResources().openRawResource(R.raw.test);
+        CSVFile csvFile = new CSVFile(inputStream);
+        List<String[]> scoreList = csvFile.read();
+
+        for (String[] row:scoreList) {
+            database.save(row[0], row[1], Integer.valueOf(row[2]), row[3], Double.valueOf(row[4]), Double.valueOf(row[5]));
+        }
     }
 
 }
