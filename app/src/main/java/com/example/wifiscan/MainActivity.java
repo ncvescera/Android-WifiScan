@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void csvPopulate() {
-        InputStream inputStream = getResources().openRawResource(R.raw.test);
+        InputStream inputStream = getResources().openRawResource(R.raw.test_dati_veri);
         CSVFile csvFile = new CSVFile(inputStream);
         List<String[]> scoreList = csvFile.read();
 
