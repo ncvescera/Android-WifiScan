@@ -32,31 +32,29 @@ public class WifiAdapter extends ArrayAdapter<Rete> {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.layout_arrayadapter, null);
 
-        // inizializzo gli elementi della tabella
+        // init row elements
         TextView SSID       = (TextView) convertView.findViewById(R.id.SSID);
-        TextView dettagli   = (TextView) convertView.findViewById(R.id.dettagli);
+        TextView info       = (TextView) convertView.findViewById(R.id.dettagli);
         TextView level      = (TextView) convertView.findViewById(R.id.level);
-        Button pwd          = (Button) convertView.findViewById(R.id.pwd);
+        Button pwd          = (Button)   convertView.findViewById(R.id.pwd);
 
-        // elemento della lista
+        // each list item
         Rete obj = getItem(position);
 
-        // setto il testo di ogni textview al relativo valore
+        // updating row items text
         SSID.setText(obj.getSSID());
-        dettagli.setText(obj.getDettagli());
+        info.setText(obj.getDettagli());
         level.setText(obj.getLevel());
 
-        // clickListener per bottone che modifica la password
+        // adding a onClickListener to the edit password button
         pwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // Prendo il relativo oggetto del bottone
+               // getting relative button object
                 Rete tmp = objects.get(position);
 
-                // inizializza l'AlertBox che modificherà la password dell'oggetto
-                AlertBox a = new AlertBox(context, tmp);
-
-                //Log.d("BOTTONE_PWD", "STR: " + a.getValue());
+                // printing the alert box used to getting the new password
+                new AlertBox(context, tmp);
             }
         });
 
