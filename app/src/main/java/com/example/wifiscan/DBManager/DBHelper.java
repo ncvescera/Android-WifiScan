@@ -13,16 +13,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-       /* String q = "CREATE TABLE " + DBStrings.TBL_NAME +
-                " ( "
-                + DBStrings.FIELD_ID + " INTEGER AUTOINCREMENT,"
-                + DBStrings.FIELD_SSID + " TEXT PRIMARY KEY,"
-                + DBStrings.FIELD_Tipo + " TEXT,"
-                + DBStrings.FIELD_Db + " INTEGER,"
-                + DBStrings.FIELD_Password + " TEXT,"
-                + DBStrings.FIELD_Latitude + " REAL,"
-                + DBStrings.FIELD_Longitude + " REAL)";
-        */
         String q = "CREATE TABLE " + DBStrings.TBL_NAME +
                 " ( "
                 + DBStrings.FIELD_SSID + " TEXT NOT NULL PRIMARY KEY,"
