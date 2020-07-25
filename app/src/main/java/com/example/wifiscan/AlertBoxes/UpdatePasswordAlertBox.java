@@ -31,28 +31,28 @@ public class UpdatePasswordAlertBox {
         this.wifiName = wifiName;
 
 
-        // inizializzazione dell'AlertBox
+        // AlertBox init.
         builder = new AlertDialog.Builder(context);
 
         LayoutInflater inflater = LayoutInflater.from(context);
         View dialog_layout = inflater.inflate(R.layout.dialog_layout, null);
 
-        // prendo riferimento all'EditText
+        // getting EditText ref.
         final EditText text = (EditText) dialog_layout.findViewById(R.id.edittext);
 
-        // aggiunta di elementi all'AlertBox
+        // adding elems to AlertBoxAlertBox
         builder.setTitle("Password");
         builder.setView(dialog_layout);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Log.d("TEST_OK", "OK " + text.getText());
-                // cambio la password nel database
+
+                // update password on database
                 dbManager.update(wifiName, text.getText().toString());
 
-                // modifico la password mostrata a video nella listview
+                // edit password on the ListView
                 textView.setText(text.getText());
-              //  obj.setPassword(text.getText().toString());
             }
         });
         builder.setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
@@ -62,11 +62,11 @@ public class UpdatePasswordAlertBox {
             }
         });
 
-        // creazione e visualizzazione dell'AlertBox
+        // creating AlertBox
         box = builder.create();
 
-        // modifica il colore dei bottoni
-        // si fa con il metodo onShow perchè i bottoni non esistono fino all'invocazione del metodo show
+        // edit buttons color
+        // have to use onShowListener because buttons don't exists until show() method is called
         box.setOnShowListener( new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface arg0) {

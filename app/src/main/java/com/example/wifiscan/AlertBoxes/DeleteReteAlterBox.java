@@ -26,21 +26,21 @@ public class DeleteReteAlterBox {
         this.wifiName = wifiName;
 
 
-        // inizializzazione dell'AlertBox
+        // AlertBox init
         builder = new AlertDialog.Builder(this.context);
 
-        // aggiunta di elementi all'AlertBox
+        // adding elems to AlertBox
         builder.setTitle("Elimina Rete");
         builder.setMessage("Sei sicuro di voler eliminare la rete ?");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                // elimino la rete
+                // delete the network
                 dbManager.deleteRete(wifiName);
 
-                // eseguo una query di tutti i dati per aggiornare il cursore e la listview
-                Cursor dati = dbManager.query();
-                adapter.changeCursor(dati);
+                // getting all data from db to update the cursor
+                Cursor cursor = dbManager.query();
+                adapter.changeCursor(cursor);
                 adapter.notifyDataSetChanged();
             }
         });
@@ -51,11 +51,11 @@ public class DeleteReteAlterBox {
             }
         });
 
-        // creazione e visualizzazione dell'AlertBox
+        // creating the AlertBox
         box = builder.create();
 
-        // modifica il colore dei bottoni
-        // si fa con il metodo onShow perchè i bottoni non esistono fino all'invocazione del metodo show
+        // edit buttons color
+        // have to use onShowListener because buttons don't exists until show() method is called
         box.setOnShowListener( new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface arg0) {

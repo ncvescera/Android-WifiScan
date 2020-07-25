@@ -14,26 +14,26 @@ import com.example.wifiscan.MainActivity;
 import com.example.wifiscan.R;
 import com.example.wifiscan.Utils.Rete;
 
-public class AlertBox {
+public class EditPasswordAlertBox {
     private Context context;
     private AlertDialog box;
     private AlertDialog.Builder builder;
     private Rete obj;
 
-    public AlertBox(MainActivity context, final Rete obj) {
+    public EditPasswordAlertBox(MainActivity context, final Rete obj) {
         this.context = context;
         this.obj = obj;
 
-        // inizializzazione dell'AlertBox
-        builder = new AlertDialog.Builder(context);
+        // AlertBox init.
+        builder = new AlertDialog.Builder(this.context);
 
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(this.context);
         View dialog_layout = inflater.inflate(R.layout.dialog_layout, null);
 
-        // prendo riferimento all'EditText
+        // getting EditText ref
         final EditText text = (EditText) dialog_layout.findViewById(R.id.edittext);
 
-        // aggiunta di elementi all'AlertBox
+        // adding elems to AlertBox
         builder.setTitle("Password");
         builder.setView(dialog_layout);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -51,16 +51,16 @@ public class AlertBox {
             }
         });
 
-        // se è già stata inserita una password popola il testo dell'EditText con la password salvata
+        // if a password already exists, populate the EditText text with it
         if(!obj.getPassword().equals("")) {
             text.setText(obj.getPassword());
         }
 
-        // creazione e visualizzazione dell'AlertBox
+        // creating the AlertBox
         box = builder.create();
 
-        // modifica il colore dei bottoni
-        // si fa con il metodo onShow perchè i bottoni non esistono fino all'invocazione del metodo show
+        // edit buttons color
+        // have to use onShowListener because buttons don't exists until show() method is called
         box.setOnShowListener( new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface arg0) {
