@@ -28,70 +28,70 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private WifiHandler wifiHandler;
+    private DBManager dbManager;
     private ArrayList<Rete> data;
 
     public static ListView listView;
     public static Button buttonScan;
     public static Button buttonSave;
-
-    private DBManager dbManager;
-
-    // PER IL WIFI SCAN DEVE ESSERE ABILITATA LA GEOLOCALIZZAZIONE E IL WIFI
+    
+    // Wifi Scanning need Wifi and GPS enabled !!!
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // inizializzo il gestore del database
+        // db mangare init.
         dbManager = new DBManager(MainActivity.this.getApplicationContext());
 
-        // inizializzazione della ListView
+        // ListView init.
         listView = findViewById(R.id.view_scan);
 
-        // inizializzazione dei dati
+        // data init.
         data = new ArrayList<Rete>();
 
-        // preso riferimento dei bottoni
+        // getting button ref.
         buttonScan = findViewById(R.id.btn_scan);
         buttonSave = findViewById(R.id.btn_save);
-        
-        // inizializzazione del gestore del wifi e della posizione
+
+        // wifihandler and locationhandler init.
         wifiHandler = new WifiHandler(MainActivity.this, data);
 
-        // inizializzazione del bottone per la scanzione e dell'evento onClick
+        // adding onClickListener on the SCAN button
         buttonScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // controlla se ha i permessi per il GPS in caso li abilita chiedendo all'utente
+                // check GPS permission and it ask the permission to the user (enable ACCESS_FINE_LOCATION permission if disabled)
                 int permissionCheck = ContextCompat.checkSelfPermission(view.getContext(), Manifest.permission.ACCESS_FINE_LOCATION);
                 if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1 );
                         return;
                 }
 
-                // disabilita i bottoni
+                // disable buttons
                 buttonSave.setEnabled(false);
                 buttonScan.setEnabled(false);
 
-                // elimina le righie vecchie per evitare di poter far casino con i bottoni
+                // delete old listview rows
+                // (the user can't mess up data while new scan is starting)
                 listView.setAdapter(null);
 
-                // avvia la scnazione del wifi
+                // start wifi scanning
                 wifiHandler.scanWifi();
             }
         });
 
-        // Bottone per salvare i dati nel database
+        // adding onClickListener on the SAVA DATA button
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // disabilita se stesso
+                // disable himself
                 buttonSave.setEnabled(false);
 
                 Toast.makeText(MainActivity.this,"Salvo i dati ...", Toast.LENGTH_SHORT).show();
 
-                // salva i dati all'interno del database
+                // saving data in the database
                 for(Rete elem : data) {
                     Log.d("DATI", elem.toString());
 
@@ -101,12 +101,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // counter for the F.C. easter egg
     int fc_counter = 0;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.dtab1:    // passa a DbActivity
+            case R.id.dtab1:    // change activity to DbActivity
                 Intent intent = new Intent(MainActivity.this, DbActivity.class);
                 startActivity(intent);
 
