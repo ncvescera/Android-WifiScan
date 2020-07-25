@@ -8,9 +8,6 @@ import android.location.LocationManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.wifiscan.MainActivity;
@@ -22,24 +19,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WifiHandler {
-    private MainActivity context;           // contesto dove andrà ad operare la classe
-    private WifiManager manager;            // manager del wifi
+    private WifiManager wifiManager;        // manager del wifi
     private BroadcastReceiver receiver;     // classe che gestirà le connessioni trovate
-    public ArrayList<Rete> arrayList;       // array che andrà stampato a schermo
+
+    public ArrayList<Rete> data;            // array che andrà stampato a schermo
     private List<ScanResult> results;       // array temporaneo che conterrà il risultato della wifiscan
-    private ListView listView;              // View a cui verranno aggiunti i dati
-    private Button button;
-    private View mainView;
 
-    public WifiHandler(final MainActivity context, final View view, final ArrayList<Rete> dati) {
+    private MainActivity context;           // contesto dove andrà ad operare la classe
+
+    public WifiHandler(final MainActivity context, final ArrayList<Rete> data) {
         this.context = context;
-        this.arrayList = dati;
-        this.mainView = view;
+        this.data = data;
 
-        this.button = this.mainView.findViewById(R.id.button);
-        this.listView = this.mainView.findViewById(R.id.view_scan);
-
-        this.manager = (WifiManager) this.context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        this.wifiManager = (WifiManager) this.context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         check_wifi_state();
 
@@ -47,7 +39,7 @@ public class WifiHandler {
             @Override
             public void onReceive(Context local_context, Intent intent) {
                 // acquisizione del risultato della scanzione
-                results = manager.getScanResults();
+                results = wifiManager.getScanResults();
 
                 local_context.unregisterReceiver(this);   // boh
 
@@ -60,7 +52,7 @@ public class WifiHandler {
 
                         continue;
                     } else {
-                        arrayList.add(new Rete(scanResult.SSID, scanResult.capabilities, Integer.toString(scanResult.level)));
+                        data.add(new Rete(scanResult.SSID, scanResult.capabilities, Integer.toString(scanResult.level)));
                         Log.d("NETWORK_VALUE", scanResult.toString());
                         //arrayList.add(scanResult.SSID + " - " + scanResult.capabilities + " - " + scanResult.level);
                     }
@@ -70,13 +62,12 @@ public class WifiHandler {
                 Toast.makeText(context, "Getting location ...", Toast.LENGTH_SHORT).show();
 
                 // crea l'handler per la geolocalizzazione e acquisisce i dati
-                LocationHandler locationHandler = new LocationHandler(context, arrayList, mainView);
+                LocationHandler locationHandler = new LocationHandler(context, data);
                 locationHandler.requestUpdate();
 
                 // aggiorna la ListView con il nuovo Adapter
-                WifiAdapter adapter = new WifiAdapter(context,R.layout.layout_arrayadapter, arrayList);
-                //ArrayAdapter<Rete> adapter = new ArrayAdapter<Rete>(context, android.R.layout.simple_list_item_1, arrayList);
-                listView.setAdapter(adapter);
+                WifiAdapter adapter = new WifiAdapter(context,R.layout.layout_arrayadapter, data);
+                MainActivity.listView.setAdapter(adapter);
             }
         };
     }
@@ -89,18 +80,18 @@ public class WifiHandler {
             Toast.makeText(context, "GPS Disabilitato, abilitarlo !", Toast.LENGTH_SHORT).show();
 
             // riabilita il bottone per la scanzione
-            Button btnscan = (Button) mainView.findViewById(R.id.btn_scan);
-            btnscan.setEnabled(true);
+            MainActivity.buttonScan.setEnabled(true);
+
             return;
         }
 
         // pulizia dell'array
-        this.arrayList.clear();
+        this.data.clear();
 
         this.context.registerReceiver(this.receiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 
         // inizio scanzione
-        this.manager.startScan();
+        this.wifiManager.startScan();
 
         Toast.makeText(this.context, "Scanning WiFi ...", Toast.LENGTH_SHORT).show();
 
@@ -109,9 +100,9 @@ public class WifiHandler {
     }
 
     private void check_wifi_state() {
-        if (!this.manager.isWifiEnabled()) {
+        if (!this.wifiManager.isWifiEnabled()) {
             Toast.makeText(this.context, "WiFi is disabled ... We need to enable it", Toast.LENGTH_LONG).show();
-            this.manager.setWifiEnabled(true);
+            this.wifiManager.setWifiEnabled(true);
         }
     }
 }

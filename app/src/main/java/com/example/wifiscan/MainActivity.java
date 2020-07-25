@@ -27,13 +27,14 @@ import com.example.wifiscan.Utils.Rete;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private ListView listView;
-    private WifiHandler gestore;
-    private ArrayList<Rete> dati;
-    private Button buttonScan;
-    private Button btn;
+    private WifiHandler wifiHandler;
+    private ArrayList<Rete> data;
 
-    private DBManager database;
+    public static ListView listView;
+    public static Button buttonScan;
+    public static Button buttonSave;
+
+    private DBManager dbManager;
 
     // PER IL WIFI SCAN DEVE ESSERE ABILITATA LA GEOLOCALIZZAZIONE E IL WIFI
 
@@ -43,23 +44,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // inizializzo il gestore del database
-        database = new DBManager(MainActivity.this.getApplicationContext());
+        dbManager = new DBManager(MainActivity.this.getApplicationContext());
 
         // inizializzazione della ListView
         listView = findViewById(R.id.view_scan);
 
         // inizializzazione dei dati
-        dati = new ArrayList<Rete>();
+        data = new ArrayList<Rete>();
 
         // preso riferimento dei bottoni
         buttonScan = findViewById(R.id.btn_scan);
-        btn = findViewById(R.id.button);
-
-        // prende il riferimento della view attuale
-        View actualView = getWindow().getDecorView().findViewById(android.R.id.content);
-
+        buttonSave = findViewById(R.id.btn_save);
+        
         // inizializzazione del gestore del wifi e della posizione
-        gestore = new WifiHandler(MainActivity.this,  actualView, dati);
+        wifiHandler = new WifiHandler(MainActivity.this, data);
 
         // inizializzazione del bottone per la scanzione e dell'evento onClick
         buttonScan.setOnClickListener(new View.OnClickListener() {
@@ -73,31 +71,31 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // disabilita i bottoni
-                btn.setEnabled(false);
+                buttonSave.setEnabled(false);
                 buttonScan.setEnabled(false);
 
                 // elimina le righie vecchie per evitare di poter far casino con i bottoni
                 listView.setAdapter(null);
 
                 // avvia la scnazione del wifi
-                gestore.scanWifi();
+                wifiHandler.scanWifi();
             }
         });
 
         // Bottone per salvare i dati nel database
-        btn.setOnClickListener(new View.OnClickListener() {
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // disabilita se stesso
-                btn.setEnabled(false);
+                buttonSave.setEnabled(false);
 
                 Toast.makeText(MainActivity.this,"Salvo i dati ...", Toast.LENGTH_SHORT).show();
 
                 // salva i dati all'interno del database
-                for(Rete elem : dati) {
+                for(Rete elem : data) {
                     Log.d("DATI", elem.toString());
 
-                    boolean result = database.save(elem.getSSID(), elem.getDettagli(), Integer.parseInt(elem.getLevel()), elem.getPassword(), elem.getLat(), elem.getLon());
+                    boolean result = dbManager.save(elem.getSSID(), elem.getDettagli(), Integer.parseInt(elem.getLevel()), elem.getPassword(), elem.getLat(), elem.getLon());
                 }
             }
         });

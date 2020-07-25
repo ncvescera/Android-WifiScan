@@ -7,12 +7,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.core.app.ActivityCompat;
 
-import com.example.wifiscan.R;
+import com.example.wifiscan.MainActivity;
 import com.example.wifiscan.Utils.Rete;
 
 import java.util.ArrayList;
@@ -20,19 +18,14 @@ import java.util.ArrayList;
 public class LocationHandler {
     private LocationManager locationManager;
     private LocationListener locationListener;
+
     private Context context;
-    private ArrayList<Rete> dati;
-    private Button button;
-    private View mainView;
-    private Button buttonScan;
+    private ArrayList<Rete> data;
 
-    public LocationHandler(final Context context, final ArrayList<Rete> dati, final View view) {
+
+    public LocationHandler(final Context context, final ArrayList<Rete> data) {
         this.context = context;
-        this.dati = dati;
-        this.mainView = view;
-
-        this.button = (Button) mainView.findViewById(R.id.button);
-        this.buttonScan = (Button) mainView.findViewById(R.id.btn_scan);
+        this.data = data;
 
         //final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager = (LocationManager) this.context.getSystemService(Context.LOCATION_SERVICE);
@@ -47,14 +40,14 @@ public class LocationHandler {
 
                 locationManager.removeUpdates(this);
 
-                for(Rete elem : dati) {
+                for(Rete elem : data) {
                     elem.setLat(location.getLatitude());
                     elem.setLon(location.getLongitude());
                 }
 
                 // riabilita il bottone per risolvere problemi di sincronizzazione
-                button.setEnabled(true);
-                buttonScan.setEnabled(true);
+                MainActivity.buttonScan.setEnabled(true);
+                MainActivity.buttonSave.setEnabled(true);
             }
         };
 
