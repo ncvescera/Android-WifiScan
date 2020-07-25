@@ -19,13 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WifiHandler {
-    private WifiManager wifiManager;        // manager del wifi
-    private BroadcastReceiver receiver;     // classe che gestirà le connessioni trovate
+    private WifiManager wifiManager;
+    private BroadcastReceiver receiver;
 
-    public ArrayList<Rete> data;            // array che andrà stampato a schermo
-    private List<ScanResult> results;       // array temporaneo che conterrà il risultato della wifiscan
+    public ArrayList<Rete> data;            // array used to populate ListView
+    private List<ScanResult> results;       // temp array for storing data. Used to populate ArrayList<Rete> data
 
-    private MainActivity context;           // contesto dove andrà ad operare la classe
+    private MainActivity context;
 
     public WifiHandler(final MainActivity context, final ArrayList<Rete> data) {
         this.context = context;
@@ -38,15 +38,14 @@ public class WifiHandler {
         this.receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context local_context, Intent intent) {
-                // acquisizione del risultato della scanzione
+                // getting scan results
                 results = wifiManager.getScanResults();
 
-                local_context.unregisterReceiver(this);   // boh
+                local_context.unregisterReceiver(this);   // boh :D
 
-                // prende i risultati e li aggiunge all'array per la stampa
-                // è qui che andranno creati gli oggetti per il custom adapter
+                // populate data ArrayList from results List
                 for (ScanResult scanResult : results) {
-                    // esclude le reti che non hanno il campo SSID
+                    // exclude Wifi with blank SSID field
                     if (scanResult.SSID.equals("")) {
                         Log.d("NO_SSID_VALUE", scanResult.toString());
 
@@ -54,18 +53,16 @@ public class WifiHandler {
                     } else {
                         data.add(new Rete(scanResult.SSID, scanResult.capabilities, Integer.toString(scanResult.level)));
                         Log.d("NETWORK_VALUE", scanResult.toString());
-                        //arrayList.add(scanResult.SSID + " - " + scanResult.capabilities + " - " + scanResult.level);
                     }
                 }
 
-                // avvisa che la geolocalizzazione sta iniziando
                 Toast.makeText(context, "Getting location ...", Toast.LENGTH_SHORT).show();
 
-                // crea l'handler per la geolocalizzazione e acquisisce i dati
+                // create the LocationHandler and getting latitude and longitude
                 LocationHandler locationHandler = new LocationHandler(context, data);
                 locationHandler.requestUpdate();
 
-                // aggiorna la ListView con il nuovo Adapter
+                // update ListView content with the new data by a CutstomArrayAdapter
                 WifiAdapter adapter = new WifiAdapter(context,R.layout.layout_arrayadapter, data);
                 MainActivity.listView.setAdapter(adapter);
             }
@@ -73,33 +70,37 @@ public class WifiHandler {
     }
 
     public void scanWifi() {
-        // controlla se il WiFi e la posizione sono attive
+        // check if wifi is enabled
         check_wifi_state();
+
+        // check if GPS is enabled
+        // if GPS is disabled it stops the scan (i don't know how to autoenable GPS like I do with the Wifi)
         LocationManager locationManager = (LocationManager) this.context.getSystemService(Context.LOCATION_SERVICE);
         if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Toast.makeText(context, "GPS Disabilitato, abilitarlo !", Toast.LENGTH_SHORT).show();
 
-            // riabilita il bottone per la scanzione
+            // enable SCAN button
             MainActivity.buttonScan.setEnabled(true);
 
             return;
         }
 
-        // pulizia dell'array
+        // wipe array content
         this.data.clear();
 
         this.context.registerReceiver(this.receiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 
-        // inizio scanzione
+        // starting scan
         this.wifiManager.startScan();
 
         Toast.makeText(this.context, "Scanning WiFi ...", Toast.LENGTH_SHORT).show();
 
-        // Acquisizione dei risultati (sembra che può essere omesso dato che sta già in broadcast reciver)
+        // gets data (it seams useless)
         //results = wifiManager.getScanResults();
     }
 
     private void check_wifi_state() {
+        // if wifi is disabled it enables it
         if (!this.wifiManager.isWifiEnabled()) {
             Toast.makeText(this.context, "WiFi is disabled ... We need to enable it", Toast.LENGTH_LONG).show();
             this.wifiManager.setWifiEnabled(true);

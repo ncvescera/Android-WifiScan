@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public static ListView listView;
     public static Button buttonScan;
     public static Button buttonSave;
-    
+
     // Wifi Scanning need Wifi and GPS enabled !!!
 
     @Override
