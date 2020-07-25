@@ -27,25 +27,25 @@ public class LocationHandler {
         this.context = context;
         this.data = data;
 
-        //final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager = (LocationManager) this.context.getSystemService(Context.LOCATION_SERVICE);
 
-        // Definisci il listener che risponde agli aggiornamenti delle posizione
         locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
-                // Metodo chiamato quando viene individuata una nuova posizione
+                // method called when new position is acquired
 
                 Log.d("LOCATION", Double.toString(location.getLatitude()));
                 Log.d("LOCATION", Double.toString(location.getLongitude()));
 
+                // the position is acquired only once
                 locationManager.removeUpdates(this);
 
+                // update data lat & lon
                 for(Rete elem : data) {
                     elem.setLat(location.getLatitude());
                     elem.setLon(location.getLongitude());
                 }
 
-                // riabilita il bottone per risolvere problemi di sincronizzazione
+                // enable buttons
                 MainActivity.buttonScan.setEnabled(true);
                 MainActivity.buttonSave.setEnabled(true);
             }
@@ -53,6 +53,7 @@ public class LocationHandler {
 
     }
 
+    // boh
     public void requestUpdate() {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
