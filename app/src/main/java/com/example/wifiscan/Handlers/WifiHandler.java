@@ -22,6 +22,8 @@ public class WifiHandler {
     private WifiManager wifiManager;
     private BroadcastReceiver receiver;
 
+    private LocationHandler locationHandler;
+
     public ArrayList<Rete> data;            // array used to populate ListView
     private List<ScanResult> results;       // temp array for storing data. Used to populate ArrayList<Rete> data
 
@@ -32,6 +34,7 @@ public class WifiHandler {
         this.data = data;
 
         this.wifiManager = (WifiManager) this.context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        this.locationHandler = new LocationHandler(this.context, this.data);
 
         check_wifi_state();
 
@@ -58,8 +61,7 @@ public class WifiHandler {
 
                 Toast.makeText(context, "Getting location ...", Toast.LENGTH_SHORT).show();
 
-                // create the LocationHandler and getting latitude and longitude
-                LocationHandler locationHandler = new LocationHandler(context, data);
+                // getting latitude and longitude
                 locationHandler.requestUpdate();
 
                 // update ListView content with the new data by a CutstomArrayAdapter
@@ -75,8 +77,7 @@ public class WifiHandler {
 
         // check if GPS is enabled
         // if GPS is disabled it stops the scan (i don't know how to autoenable GPS like I do with the Wifi)
-        LocationManager locationManager = (LocationManager) this.context.getSystemService(Context.LOCATION_SERVICE);
-        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+        if(!locationHandler.isGPSEnabled()) {
             Toast.makeText(context, "GPS Disabilitato, abilitarlo !", Toast.LENGTH_SHORT).show();
 
             // enable SCAN button
