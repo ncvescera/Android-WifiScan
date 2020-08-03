@@ -72,7 +72,7 @@ public class AlertBoxManager {
     }
 
     public static void displayUpdatePasswordAlertBox(Activity context, final TextView textView, final String wifiName) {
-        final DBManager dbManager = new DBManager(context);
+        final DBManager dbManager = DBManager.getDbInstance(context);
 
         // AlertBox init.
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -112,7 +112,7 @@ public class AlertBoxManager {
     }
 
     public static void displayDeleteReteAlertBox(final Activity context, final String wifiName, final WifiCursorAdapter adapter) {
-        final DBManager dbManager = new DBManager(context);
+        final DBManager dbManager = DBManager.getDbInstance(context);
 
         // AlertBox init
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

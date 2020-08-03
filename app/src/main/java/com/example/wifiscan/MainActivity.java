@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // db mangare init.
-        dbManager = new DBManager(MainActivity.this.getApplicationContext());
+        dbManager = DBManager.getDbInstance(getApplicationContext());
 
         // ListView init.
         listView = findViewById(R.id.view_scan);

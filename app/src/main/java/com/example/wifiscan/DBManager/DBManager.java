@@ -9,10 +9,19 @@ import android.util.Log;
 
 public class DBManager {
     private DBHelper dbhelper;
+    private static DBManager instance;
 
-    public DBManager(Context ctx) {
+    private DBManager(Context ctx) {
         dbhelper=new DBHelper(ctx);
 
+    }
+
+    public static DBManager getDbInstance(Context context) {
+        if (instance == null) {
+           instance = new DBManager(context);
+        }
+
+        return instance;
     }
 
     public boolean save(String SSID, String tipo, int level, String password, Double lat, Double lon) {

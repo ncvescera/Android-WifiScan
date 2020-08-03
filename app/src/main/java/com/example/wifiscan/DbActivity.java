@@ -60,7 +60,7 @@ public class DbActivity extends AppCompatActivity {
         });
 
         // inizializzo il dbManager
-        manager = new DBManager(getApplicationContext());
+        manager = DBManager.getDbInstance(getApplicationContext());
 
         // prendo tutti i dati dal database per inizializzare la listview
         cursor = manager.query();
