@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-import com.example.wifiscan.AlertBoxes.UpdatePasswordAlertBox;
 import com.example.wifiscan.DBManager.DBStrings;
 import com.example.wifiscan.R;
+import com.example.wifiscan.Utils.AlertBoxManager;
 import com.example.wifiscan.Utils.HumanPosition;
 
 
@@ -52,7 +52,7 @@ public class WifiCursorAdapter extends CursorAdapter {
                 TextView tmp = view.findViewById(R.id.cursor_password);
 
                 // printing the alert box used to edit the password
-                new UpdatePasswordAlertBox(activityContext , tmp, SSID.getText().toString());
+                AlertBoxManager.displayUpdatePasswordAlertBox(activityContext , tmp, SSID.getText().toString());
             }
         });
 

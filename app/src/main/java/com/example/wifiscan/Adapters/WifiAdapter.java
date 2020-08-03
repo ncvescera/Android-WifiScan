@@ -8,9 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.wifiscan.AlertBoxes.EditPasswordAlertBox;
 import com.example.wifiscan.MainActivity;
 import com.example.wifiscan.R;
+import com.example.wifiscan.Utils.AlertBoxManager;
 import com.example.wifiscan.Utils.Rete;
 
 import java.util.List;
@@ -54,7 +54,7 @@ public class WifiAdapter extends ArrayAdapter<Rete> {
                 Rete tmp = objects.get(position);
 
                 // printing the alert box used to getting the new password
-                new EditPasswordAlertBox(context, tmp);
+                AlertBoxManager.displayEditPasswordAlertBox(context, tmp);
             }
         });
 
