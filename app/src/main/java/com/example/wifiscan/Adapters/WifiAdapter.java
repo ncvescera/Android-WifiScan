@@ -1,5 +1,6 @@
 package com.example.wifiscan.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +19,9 @@ import java.util.List;
 public class WifiAdapter extends ArrayAdapter<Rete> {
 
     private List<Rete> objects;
-    private MainActivity context;
+    private Activity context;
 
-    public WifiAdapter(MainActivity context, int textViewResourceId, List<Rete> objects) {
+    public WifiAdapter(Activity context, int textViewResourceId, List<Rete> objects) {
         super(context, textViewResourceId, objects);
 
         this.objects = objects;

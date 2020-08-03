@@ -1,5 +1,6 @@
 package com.example.wifiscan.Handlers;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -27,9 +28,9 @@ public class WifiHandler {
     public ArrayList<Rete> data;            // array used to populate ListView
     private List<ScanResult> results;       // temp array for storing data. Used to populate ArrayList<Rete> data
 
-    private MainActivity context;
+    private Activity context;
 
-    public WifiHandler(final MainActivity context, final ArrayList<Rete> data) {
+    public WifiHandler(final Activity context, final ArrayList<Rete> data) {
         this.context = context;
         this.data = data;
 

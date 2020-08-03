@@ -30,7 +30,7 @@ public class AlertBoxManager {
         });
     }
 
-    public static void displayEditPasswordAlertBox(MainActivity context, final Rete obj) {
+    public static void displayEditPasswordAlertBox(Activity context, final Rete obj) {
         // AlertBox init.
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
