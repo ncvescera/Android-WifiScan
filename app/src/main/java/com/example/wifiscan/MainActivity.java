@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-
 import android.Manifest;
 import android.content.Intent;
 
@@ -22,93 +21,102 @@ import android.widget.Toast;
 
 import com.example.wifiscan.DBManager.DBManager;
 import com.example.wifiscan.Handlers.WifiHandler;
+import com.example.wifiscan.Utils.AESCrypt;
 import com.example.wifiscan.Utils.Rete;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private ListView listView;
-    private WifiHandler gestore;
-    private ArrayList<Rete> dati;
-    private Button buttonScan;
-    private Button btn;
+    private WifiHandler wifiHandler;
+    private DBManager dbManager;
+    private ArrayList<Rete> data;
 
-    private DBManager database;
+    public static ListView listView;
+    public static Button buttonScan;
+    public static Button buttonSave;
 
-    // PER IL WIFI SCAN DEVE ESSERE ABILITATA LA GEOLOCALIZZAZIONE E IL WIFI
+    // Wifi Scanning need Wifi and GPS enabled !!!
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // inizializzo il gestore del database
-        database = new DBManager(MainActivity.this.getApplicationContext());
+        // db mangare init.
+        dbManager = DBManager.getDbInstance(getApplicationContext());
 
-        // inizializzazione della ListView
+        // ListView init.
         listView = findViewById(R.id.view_scan);
 
-        // inizializzazione dei dati
-        dati = new ArrayList<Rete>();
+        // data init.
+        data = new ArrayList<Rete>();
 
-        // preso riferimento dei bottoni
+        // getting button ref.
         buttonScan = findViewById(R.id.btn_scan);
-        btn = findViewById(R.id.button);
+        buttonSave = findViewById(R.id.btn_save);
 
-        // prende il riferimento della view attuale
-        View actualView = getWindow().getDecorView().findViewById(android.R.id.content);
+        // wifihandler and locationhandler init.
+        wifiHandler = new WifiHandler(MainActivity.this, data);
 
-        // inizializzazione del gestore del wifi e della posizione
-        gestore = new WifiHandler(MainActivity.this,  actualView, dati);
-
-        // inizializzazione del bottone per la scanzione e dell'evento onClick
+        // adding onClickListener on the SCAN button
         buttonScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // controlla se ha i permessi per il GPS in caso li abilita chiedendo all'utente
+                // check GPS permission and it ask the permission to the user (enable ACCESS_FINE_LOCATION permission if disabled)
                 int permissionCheck = ContextCompat.checkSelfPermission(view.getContext(), Manifest.permission.ACCESS_FINE_LOCATION);
                 if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1 );
                         return;
                 }
 
-                // disabilita i bottoni
-                btn.setEnabled(false);
+                // disable buttons
+                buttonSave.setEnabled(false);
                 buttonScan.setEnabled(false);
 
-                // elimina le righie vecchie per evitare di poter far casino con i bottoni
+                // delete old listview rows
+                // (the user can't mess up data while new scan is starting)
                 listView.setAdapter(null);
 
-                // avvia la scnazione del wifi
-                gestore.scanWifi();
+                // start wifi scanning
+                wifiHandler.scanWifi();
             }
         });
 
-        // Bottone per salvare i dati nel database
-        btn.setOnClickListener(new View.OnClickListener() {
+        // adding onClickListener on the SAVA DATA button
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // disabilita se stesso
-                btn.setEnabled(false);
+                // disable himself
+                buttonSave.setEnabled(false);
 
                 Toast.makeText(MainActivity.this,"Salvo i dati ...", Toast.LENGTH_SHORT).show();
 
-                // salva i dati all'interno del database
-                for(Rete elem : dati) {
+                // saving data in the database
+                for(Rete elem : data) {
                     Log.d("DATI", elem.toString());
+                    String password = "";
 
-                    boolean result = database.save(elem.getSSID(), elem.getDettagli(), Integer.parseInt(elem.getLevel()), elem.getPassword(), elem.getLat(), elem.getLon());
+                    // trying to encrypt the password
+                    try {
+                        password = AESCrypt.encrypt(elem.getPassword());
+                    } catch (Exception e) {
+                        password = "";
+                        Log.d("ENCRIPTION", "FAIL: " + e);
+                    }
+
+                    boolean result = dbManager.save(elem.getSSID(), elem.getDettagli(), Integer.parseInt(elem.getLevel()), password, elem.getLat(), elem.getLon());
                 }
             }
         });
     }
 
+    // counter for the F.C. easter egg
     int fc_counter = 0;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.dtab1:    // passa a DbActivity
+            case R.id.dtab1:    // change activity to DbActivity
                 Intent intent = new Intent(MainActivity.this, DbActivity.class);
                 startActivity(intent);
 

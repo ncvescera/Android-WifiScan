@@ -18,9 +18,9 @@ import android.widget.Toast;
 
 
 import com.example.wifiscan.Adapters.WifiCursorAdapter;
-import com.example.wifiscan.AlertBoxes.DeleteReteAlterBox;
 import com.example.wifiscan.DBManager.DBManager;
 import com.example.wifiscan.DBManager.DBStrings;
+import com.example.wifiscan.Utils.AlertBoxManager;
 import com.example.wifiscan.Utils.HumanPosition;
 
 import java.util.ArrayList;
@@ -53,14 +53,14 @@ public class DbActivity extends AppCompatActivity {
 
                 Log.d("LONG_CLICK_TEST", ssid);
 
-                new DeleteReteAlterBox(contesto, ssid, adapter);
+                AlertBoxManager.displayDeleteReteAlertBox(contesto, ssid, adapter);
 
                 return true;
             }
         });
 
         // inizializzo il dbManager
-        manager = new DBManager(getApplicationContext());
+        manager = DBManager.getDbInstance(getApplicationContext());
 
         // prendo tutti i dati dal database per inizializzare la listview
         cursor = manager.query();

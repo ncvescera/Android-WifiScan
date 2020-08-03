@@ -7,12 +7,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.core.app.ActivityCompat;
 
-import com.example.wifiscan.R;
+import com.example.wifiscan.MainActivity;
 import com.example.wifiscan.Utils.Rete;
 
 import java.util.ArrayList;
@@ -20,46 +18,42 @@ import java.util.ArrayList;
 public class LocationHandler {
     private LocationManager locationManager;
     private LocationListener locationListener;
+
     private Context context;
-    private ArrayList<Rete> dati;
-    private Button button;
-    private View mainView;
-    private Button buttonScan;
+    private ArrayList<Rete> data;
 
-    public LocationHandler(final Context context, final ArrayList<Rete> dati, final View view) {
+
+    public LocationHandler(final Context context, final ArrayList<Rete> data) {
         this.context = context;
-        this.dati = dati;
-        this.mainView = view;
+        this.data = data;
 
-        this.button = (Button) mainView.findViewById(R.id.button);
-        this.buttonScan = (Button) mainView.findViewById(R.id.btn_scan);
-
-        //final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager = (LocationManager) this.context.getSystemService(Context.LOCATION_SERVICE);
 
-        // Definisci il listener che risponde agli aggiornamenti delle posizione
         locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
-                // Metodo chiamato quando viene individuata una nuova posizione
+                // method called when new position is acquired
 
                 Log.d("LOCATION", Double.toString(location.getLatitude()));
                 Log.d("LOCATION", Double.toString(location.getLongitude()));
 
+                // the position is acquired only once
                 locationManager.removeUpdates(this);
 
-                for(Rete elem : dati) {
+                // update data lat & lon
+                for(Rete elem : data) {
                     elem.setLat(location.getLatitude());
                     elem.setLon(location.getLongitude());
                 }
 
-                // riabilita il bottone per risolvere problemi di sincronizzazione
-                button.setEnabled(true);
-                buttonScan.setEnabled(true);
+                // enable buttons
+                MainActivity.buttonScan.setEnabled(true);
+                MainActivity.buttonSave.setEnabled(true);
             }
         };
 
     }
 
+    // boh
     public void requestUpdate() {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -73,5 +67,9 @@ public class LocationHandler {
         }
 
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+    }
+
+    public boolean isGPSEnabled() {
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 }
