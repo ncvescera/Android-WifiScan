@@ -14,7 +14,6 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.example.wifiscan.Adapters.WifiCursorAdapter;
 import com.example.wifiscan.DBManager.DBManager;
-import com.example.wifiscan.MainActivity;
 import com.example.wifiscan.R;
 
 public class AlertBoxManager {
