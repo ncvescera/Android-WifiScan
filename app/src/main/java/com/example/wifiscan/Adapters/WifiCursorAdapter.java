@@ -3,6 +3,7 @@ package com.example.wifiscan.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.wifiscan.DBManager.DBStrings;
 import com.example.wifiscan.R;
+import com.example.wifiscan.Utils.AESCrypt;
 import com.example.wifiscan.Utils.AlertBoxManager;
 import com.example.wifiscan.Utils.HumanPosition;
 
@@ -42,7 +44,14 @@ public class WifiCursorAdapter extends CursorAdapter {
         SSID.setText(cursor.getString(cursor.getColumnIndex(DBStrings.FIELD_SSID)));
         info.setText(cursor.getString(cursor.getColumnIndex(DBStrings.FIELD_Tipo)));
         level.setText(cursor.getString(cursor.getColumnIndex(DBStrings.FIELD_Db)));
-        password.setText(cursor.getString(cursor.getColumnIndex(DBStrings.FIELD_Password)));
+
+        // trying to decrypt the password
+        try {
+            password.setText(AESCrypt.decrypt(cursor.getString(cursor.getColumnIndex(DBStrings.FIELD_Password))));
+        } catch (Exception e) {
+            password.setText("");
+            Log.d("ENCRIPTION", "FAIL: " + e);
+        }
 
         // makes password field clickable
         password.setOnClickListener(new View.OnClickListener() {

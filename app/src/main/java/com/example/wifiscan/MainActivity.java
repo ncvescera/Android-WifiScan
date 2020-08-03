@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.wifiscan.DBManager.DBManager;
 import com.example.wifiscan.Handlers.WifiHandler;
+import com.example.wifiscan.Utils.AESCrypt;
 import com.example.wifiscan.Utils.Rete;
 
 import java.util.ArrayList;
@@ -93,8 +94,17 @@ public class MainActivity extends AppCompatActivity {
                 // saving data in the database
                 for(Rete elem : data) {
                     Log.d("DATI", elem.toString());
+                    String password = "";
 
-                    boolean result = dbManager.save(elem.getSSID(), elem.getDettagli(), Integer.parseInt(elem.getLevel()), elem.getPassword(), elem.getLat(), elem.getLon());
+                    // trying to encrypt the password
+                    try {
+                        password = AESCrypt.encrypt(elem.getPassword());
+                    } catch (Exception e) {
+                        password = "";
+                        Log.d("ENCRIPTION", "FAIL: " + e);
+                    }
+
+                    boolean result = dbManager.save(elem.getSSID(), elem.getDettagli(), Integer.parseInt(elem.getLevel()), password, elem.getLat(), elem.getLon());
                 }
             }
         });

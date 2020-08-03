@@ -91,8 +91,18 @@ public class AlertBoxManager {
             public void onClick(DialogInterface dialogInterface, int i) {
                 Log.d("TEST_OK", "OK " + text.getText());
 
+                // trying to encrypt the password
+                String password = "";
+
+                try {
+                    password = AESCrypt.encrypt(text.getText().toString());
+                } catch (Exception e) {
+                    password = "";
+                    Log.d("ENCRIPTION", "FAIL: " + e);
+                }
+
                 // update password on database
-                dbManager.update(wifiName, text.getText().toString());
+                dbManager.update(wifiName, password);
 
                 // edit password on the ListView
                 textView.setText(text.getText());
