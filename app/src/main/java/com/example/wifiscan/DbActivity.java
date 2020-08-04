@@ -1,5 +1,6 @@
 package com.example.wifiscan;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -101,7 +102,7 @@ public class DbActivity extends AppCompatActivity {
                     HumanPosition converter = new HumanPosition(contesto);
                     ArrayList<Double> dati = converter.stringToCoord(positionText);
 
-                    if(dati != null) {
+                    if (dati != null) {
                         Log.d("CONVERSIONE_TEST", "" + dati.get(0));
                         Log.d("CONVERSIONE_TEST", "" + dati.get(1));
 
@@ -110,7 +111,7 @@ public class DbActivity extends AppCompatActivity {
                         adapter.changeCursor(cursor);
                         adapter.notifyDataSetChanged();
                     } else {
-                        Toast.makeText(contesto,"Posizione inesistente :/", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(contesto, "Posizione inesistente :/", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Log.d("SEARCH", "ASDASD");
@@ -118,7 +119,7 @@ public class DbActivity extends AppCompatActivity {
                     HumanPosition converter = new HumanPosition(contesto);
                     ArrayList<Double> dati = converter.stringToCoord(positionText);
 
-                    if(dati != null) {
+                    if (dati != null) {
                         Log.d("CONVERSIONE_TEST", "" + dati.get(0));
                         Log.d("CONVERSIONE_TEST", "" + dati.get(1));
 
@@ -127,7 +128,7 @@ public class DbActivity extends AppCompatActivity {
                         adapter.changeCursor(cursor);
                         adapter.notifyDataSetChanged();
                     } else {
-                        Toast.makeText(contesto,"Posizione inesistente :/", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(contesto, "Posizione inesistente :/", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -154,47 +155,21 @@ public class DbActivity extends AppCompatActivity {
         // prendo il riferimento del layout del menu
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.db_menu, menu);
-        MenuItem menuItem = menu.findItem(R.id.search_item);
 
-        // inizializzo la searchView
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint("Cerca per posizione");
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                Log.d("Query_test", s);
 
-                // trasformo la stringa in coordinate (latitudine e longitudine)
-                HumanPosition converter = new HumanPosition(contesto);
-                ArrayList<Double> dati = converter.stringToCoord(s);
+        return true;
+    }
 
-                if(dati != null) {
-                    Log.d("CONVERSIONE_TEST", "" + dati.get(0));
-                    Log.d("CONVERSIONE_TEST", "" + dati.get(1));
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.deleteDatabase:
+                manager.deleteAllDataTable(DBStrings.TBL_NAME);
+                cursor = null;
 
-                    // cerco nel database le reti più vicine alla posizione data dall'utente
-                    cursor = manager.search(dati.get(0), dati.get(1));
-                    adapter.changeCursor(cursor);
-                    adapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(contesto,"Posizione inesistente :/", Toast.LENGTH_SHORT).show();
-                }
-
-                return false;
-
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                // quando la stringa viene cancellata del tutto faccio vedere tutti i dati del database
-                if( s.equals("")){
-                    cursor = manager.query();
-                    adapter.changeCursor(cursor);
-                    adapter.notifyDataSetChanged();
-                }
-                return false;
-            }
-        });
+                adapter.changeCursor(cursor);
+                adapter.notifyDataSetChanged();
+                break;
+        }
 
         return true;
     }
