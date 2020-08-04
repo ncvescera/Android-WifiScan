@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 public class DbActivity extends AppCompatActivity {
     private ListView listView;
     private DBManager manager;
-    private Button elimina;
+    private ImageButton elimina;
     private WifiCursorAdapter adapter;
     private Cursor cursor;
     private Activity contesto;
