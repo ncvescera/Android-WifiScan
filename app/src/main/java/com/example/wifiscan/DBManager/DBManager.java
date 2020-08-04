@@ -113,6 +113,19 @@ public class DBManager {
 
         return cursor;
     }
+    public Cursor search(String s, Double lat, Double lon) {
+        Cursor cursor = null;
+
+        try {
+            SQLiteDatabase db=dbhelper.getReadableDatabase();
+
+            cursor = db.rawQuery("SELECT ROWID as _id, * FROM " + DBStrings.TBL_NAME + " WHERE " + DBStrings.FIELD_SSID + " LIKE '%"+ s + "%'" + " ORDER BY " + "((" + DBStrings.FIELD_Latitude + "-" + lat + ")*("+DBStrings.FIELD_Latitude + "-" + lat + ") + (" + DBStrings.FIELD_Longitude + "-" + lon + ")*(" + DBStrings.FIELD_Longitude + "-" + lon + ")) ASC",null);
+        } catch (SQLiteException e) {
+            return null;
+        }
+
+        return cursor;
+    }
 
     public void update(String campo, String data){
         // getting db instance

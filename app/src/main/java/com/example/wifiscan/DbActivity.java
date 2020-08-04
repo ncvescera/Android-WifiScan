@@ -11,7 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -29,10 +29,12 @@ import java.util.ArrayList;
 public class DbActivity extends AppCompatActivity {
     private ListView listView;
     private DBManager manager;
-    private ImageButton elimina;
+    private ImageButton cercaBtn;
     private WifiCursorAdapter adapter;
     private Cursor cursor;
     private Activity contesto;
+    private EditText SSIDEditText;
+    private EditText PositionEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,11 @@ public class DbActivity extends AppCompatActivity {
         this.contesto = this;
 
         // bottone per eliminare il contenuto del database
-        elimina = findViewById(R.id.elimina_db);
+        cercaBtn = findViewById(R.id.elimina_db);
+
+        // EditText per la ricerca
+        SSIDEditText = findViewById(R.id.searchSSID);
+        PositionEditText = findViewById(R.id.searchPosition);
 
         // listview principale
         listView = (ListView) findViewById(R.id.cursor_listview);
@@ -70,14 +76,75 @@ public class DbActivity extends AppCompatActivity {
         adapter = new WifiCursorAdapter(this, cursor, 0);
         listView.setAdapter(adapter);
 
-        // premere il bottone fa eliminare tutto il database
-        elimina.setOnClickListener(new View.OnClickListener() {
+        // esegue la ricerca in base al contenuto delle EditText
+        cercaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // aggiungere alertbox
-                manager.deleteAllDataTable(DBStrings.TBL_NAME);
-                listView.setAdapter(null);
+                // prende il contenuto delle EditTExt
+                String ssidText = SSIDEditText.getText().toString();
+                String positionText = PositionEditText.getText().toString();
 
+                if ((positionText == null || positionText.equals("")) && (ssidText == null || ssidText.equals(""))) { // controlla se tutte e 2 le EditText sono vuote
+                    cursor = manager.query();
+
+                    adapter.changeCursor(cursor);
+                    adapter.notifyDataSetChanged();
+                } else if (positionText == null || positionText.equals("")) { // controlla se la EditText della posizione è vuota
+                    // effettuo la query e aggiorno la ListView
+                    cursor = manager.search(ssidText);
+
+                    adapter.changeCursor(cursor);
+                    adapter.notifyDataSetChanged();
+
+                } else if (ssidText == null || ssidText.equals("")) {   // controlla se la EditText del SSID è vuota
+                    // effettua la conversione da Stringa a Coordinate e aggiorna la ListView
+                    HumanPosition converter = new HumanPosition(contesto);
+                    ArrayList<Double> dati = converter.stringToCoord(positionText);
+
+                    if(dati != null) {
+                        Log.d("CONVERSIONE_TEST", "" + dati.get(0));
+                        Log.d("CONVERSIONE_TEST", "" + dati.get(1));
+
+                        // cerco nel database le reti più vicine alla posizione data dall'utente
+                        cursor = manager.search(dati.get(0), dati.get(1));
+                        adapter.changeCursor(cursor);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(contesto,"Posizione inesistente :/", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Log.d("SEARCH", "ASDASD");
+                    // effettua la conversione da Stringa a Coordinate e aggiorna la ListView
+                    HumanPosition converter = new HumanPosition(contesto);
+                    ArrayList<Double> dati = converter.stringToCoord(positionText);
+
+                    if(dati != null) {
+                        Log.d("CONVERSIONE_TEST", "" + dati.get(0));
+                        Log.d("CONVERSIONE_TEST", "" + dati.get(1));
+
+                        // cerco nel database le reti più vicine alla posizione data dall'utente
+                        cursor = manager.search(ssidText, dati.get(0), dati.get(1));
+                        adapter.changeCursor(cursor);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(contesto,"Posizione inesistente :/", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                // aggiungere alertbox
+                //manager.deleteAllDataTable(DBStrings.TBL_NAME);
+                //listView.setAdapter(null);
+
+            }
+        });
+
+        // con una lunga pressione del tasto viene eliminato il contenuto delle EditText
+        cercaBtn.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                SSIDEditText.setText("");
+                PositionEditText.setText("");
+                return true;
             }
         });
     }
