@@ -29,6 +29,10 @@
         <activity
             android:name=".FCActivity"
             android:label="Il Regno di F.C." />
+
+        <activity
+            android:name=".DegradoActivity"
+            android:label="Degrado !" />
     </application>
 
 </manifest>

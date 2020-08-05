@@ -8,4 +8,10 @@
         android:title="Elimina Database"
         app:showAsAction="never"
         />
+    <item
+        android:id="@+id/degrado"
+        android:icon="@drawable/ic_icon"
+        android:title=" "
+        app:showAsAction="never"
+        />
 </menu>

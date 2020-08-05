@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -84,6 +85,11 @@ public class DbActivity extends AppCompatActivity {
 
                 adapter.changeCursor(cursor);
                 adapter.notifyDataSetChanged();
+                break;
+            case R.id.degrado:
+                // passa al degrado
+                Intent intent = new Intent(DbActivity.this, DegradoActivity.class);
+                startActivity(intent);
                 break;
         }
 
