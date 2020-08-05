@@ -63,7 +63,7 @@ public class DbActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         // aggiunge i listeners ai vari oggetti
-       setListeners();
+        setListeners();
     }
 
     @Override
