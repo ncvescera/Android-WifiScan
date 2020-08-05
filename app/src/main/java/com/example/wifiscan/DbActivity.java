@@ -77,6 +77,15 @@ public class DbActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onDestroy() {
+        // quando l'Activity viene chiusa il cursore e la connessione al database vengono chiusi
+        cursor.close();
+        manager.close();
+
+        super.onDestroy();
+    }
+
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.deleteDatabase:

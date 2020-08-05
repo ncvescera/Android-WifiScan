@@ -25,6 +25,11 @@ public class DBManager {
         return instance;
     }
 
+    public void close() {
+        dbhelper.close();
+        instance = null;
+    }
+
     public boolean save(String SSID, String tipo, int level, String password, Double lat, Double lon) {
         SQLiteDatabase db = dbhelper.getWritableDatabase();
 
