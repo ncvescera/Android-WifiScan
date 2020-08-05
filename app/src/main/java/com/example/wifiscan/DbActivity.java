@@ -145,6 +145,12 @@ public class DbActivity extends AppCompatActivity {
             public boolean onLongClick(View v) {
                 SSIDEditText.setText("");
                 PositionEditText.setText("");
+
+                cursor = manager.query();
+
+                adapter.changeCursor(cursor);
+                adapter.notifyDataSetChanged();
+
                 return true;
             }
         });
