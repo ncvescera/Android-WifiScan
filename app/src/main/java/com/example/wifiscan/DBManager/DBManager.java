@@ -10,6 +10,7 @@ import android.util.Log;
 public class DBManager {
     private DBHelper dbhelper;
     private static DBManager instance;
+    private String distanzaPerGeolocalizzazione = "0.0008";
 
     private DBManager(Context ctx) {
         dbhelper=new DBHelper(ctx);
@@ -105,7 +106,10 @@ public class DBManager {
             // getting db instance
             SQLiteDatabase db=dbhelper.getReadableDatabase();
 
-            cursor = db.rawQuery("SELECT ROWID as _id, * FROM " + DBStrings.TBL_NAME + " ORDER BY " + "((" + DBStrings.FIELD_Latitude + "-" + lat + ")*("+DBStrings.FIELD_Latitude + "-" + lat + ") + (" + DBStrings.FIELD_Longitude + "-" + lon + ")*(" + DBStrings.FIELD_Longitude + "-" + lon + ")) ASC",null);
+            // stringa per identificazione della distanza
+            String distanza = "(" + DBStrings.FIELD_Latitude + "-" + lat + ")*("+DBStrings.FIELD_Latitude + "-" + lat + ") + (" + DBStrings.FIELD_Longitude + "-" + lon + ")*(" + DBStrings.FIELD_Longitude + "-" + lon + ")";
+
+            cursor = db.rawQuery("SELECT ROWID as _id, *, " +  distanza + " as Distanza FROM " + DBStrings.TBL_NAME + " WHERE Distanza <= " + distanzaPerGeolocalizzazione ,null);
 
         } catch (SQLiteException e){
             return null;
@@ -113,13 +117,17 @@ public class DBManager {
 
         return cursor;
     }
+
     public Cursor search(String s, Double lat, Double lon) {
         Cursor cursor = null;
 
         try {
             SQLiteDatabase db=dbhelper.getReadableDatabase();
 
-            cursor = db.rawQuery("SELECT ROWID as _id, * FROM " + DBStrings.TBL_NAME + " WHERE " + DBStrings.FIELD_SSID + " LIKE '%"+ s + "%'" + " ORDER BY " + "((" + DBStrings.FIELD_Latitude + "-" + lat + ")*("+DBStrings.FIELD_Latitude + "-" + lat + ") + (" + DBStrings.FIELD_Longitude + "-" + lon + ")*(" + DBStrings.FIELD_Longitude + "-" + lon + ")) ASC",null);
+            // stringa per identificazione della distanza
+            String distanza = "(" + DBStrings.FIELD_Latitude + "-" + lat + ")*("+DBStrings.FIELD_Latitude + "-" + lat + ") + (" + DBStrings.FIELD_Longitude + "-" + lon + ")*(" + DBStrings.FIELD_Longitude + "-" + lon + ")";
+
+            cursor = db.rawQuery("SELECT ROWID as _id, *, " + distanza + " as distanza FROM " + DBStrings.TBL_NAME + " WHERE " + DBStrings.FIELD_SSID + " LIKE '%"+ s + "%' AND distanza <= " + distanzaPerGeolocalizzazione ,null);
         } catch (SQLiteException e) {
             return null;
         }
