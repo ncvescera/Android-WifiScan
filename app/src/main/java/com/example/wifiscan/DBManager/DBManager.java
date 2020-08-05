@@ -10,7 +10,7 @@ import android.util.Log;
 public class DBManager {
     private DBHelper dbhelper;
     private static DBManager instance;
-    private String distanzaPerGeolocalizzazione = "0.0008";
+    private String distanzaPerGeolocalizzazione = "0.002";
 
     private DBManager(Context ctx) {
         dbhelper=new DBHelper(ctx);
