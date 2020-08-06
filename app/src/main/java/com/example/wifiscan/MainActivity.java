@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Intent;
@@ -16,7 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.wifiscan.DBManager.DBManager;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private DBManager dbManager;
     private ArrayList<Rete> data;
 
-    public static ListView listView;
+    public static RecyclerView recyclerView;
     public static Button buttonScan;
     public static Button buttonSave;
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         dbManager = DBManager.getDbInstance(getApplicationContext());
 
         // ListView init.
-        listView = findViewById(R.id.view_scan);
+        recyclerView = (RecyclerView) findViewById(R.id.view_scan);
 
         // data init.
         data = new ArrayList<Rete>();
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // delete old listview rows
                 // (the user can't mess up data while new scan is starting)
-                listView.setAdapter(null);
+                recyclerView.setAdapter(null);
 
                 // start wifi scanning
                 wifiHandler.scanWifi();

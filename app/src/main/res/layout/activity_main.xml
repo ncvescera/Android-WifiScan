@@ -82,7 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view_scan"
         app:layout_constraintVertical_bias="1.0" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/view_scan"
         android:layout_width="match_parent"
         android:layout_height="403dp"
