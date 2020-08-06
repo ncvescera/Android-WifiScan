@@ -67,11 +67,14 @@ public class DbActivity extends AppCompatActivity {
         reti = manager.query();
 
         // creo l'adapter e lo aggiungo alla recyclerview
-        adapter = new DatabaseRecyclerViewAdapter(reti);
-        //recyclerView.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation));
+        adapter = new DatabaseRecyclerViewAdapter();
+
+        recyclerView.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation));
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        adapter.setReti(reti);
+        
         // aggiunge i listeners ai vari oggetti
         setListeners();
     }

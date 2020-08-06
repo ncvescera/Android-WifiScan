@@ -28,6 +28,10 @@ public class DatabaseRecyclerViewAdapter extends RecyclerView.Adapter<DatabaseRe
         setReti(reti);
     }
 
+    public DatabaseRecyclerViewAdapter() {
+
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
