@@ -128,7 +128,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        android:layoutAnimation="@anim/layout_animation"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:layoutAnimation="@anim/layout_animation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

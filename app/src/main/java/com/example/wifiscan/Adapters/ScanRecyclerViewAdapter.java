@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wifiscan.MainActivity;
 import com.example.wifiscan.R;
 import com.example.wifiscan.Utils.AlertBoxManager;
 import com.example.wifiscan.Utils.Rete;
@@ -56,6 +57,7 @@ public class ScanRecyclerViewAdapter extends RecyclerView.Adapter<ScanRecyclerVi
     public void setReti(ArrayList<Rete> reti) {
         this.reti = reti;
         notifyDataSetChanged(); // aggiorna la RecyclerView quando i dati sono stati modificati
+        MainActivity.recyclerView.scheduleLayoutAnimation();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

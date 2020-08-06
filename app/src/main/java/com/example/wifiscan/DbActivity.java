@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -34,10 +35,10 @@ public class DbActivity extends AppCompatActivity {
     private EditText SSIDEditText;
     private EditText PositionEditText;
 
-    private RecyclerView recyclerView;
     private DBManager manager;
     private ArrayList<Rete> reti;
 
+    public static RecyclerView recyclerView;
     public static DatabaseRecyclerViewAdapter adapter;
 
     @Override
@@ -65,6 +66,7 @@ public class DbActivity extends AppCompatActivity {
 
         // creo l'adapter e lo aggiungo alla recyclerview
         adapter = new DatabaseRecyclerViewAdapter(reti);
+        recyclerView.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation));
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

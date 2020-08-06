@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wifiscan.DbActivity;
 import com.example.wifiscan.R;
 import com.example.wifiscan.Utils.AESCrypt;
 import com.example.wifiscan.Utils.AlertBoxManager;
@@ -77,6 +78,7 @@ public class DatabaseRecyclerViewAdapter extends RecyclerView.Adapter<DatabaseRe
     public void setReti(ArrayList<Rete> reti) {
         this.reti = reti;
         notifyDataSetChanged();
+        DbActivity.recyclerView.scheduleLayoutAnimation();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
