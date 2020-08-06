@@ -73,6 +73,14 @@ public class ScanRecyclerViewAdapter extends RecyclerView.Adapter<ScanRecyclerVi
             info       = (TextView) itemView.findViewById(R.id.dettagli);
             level      = (TextView) itemView.findViewById(R.id.level);
             pwd        = (Button)   itemView.findViewById(R.id.pwd);
+
+            // per rendere l'elemento cliccabile ed avviare l'animazione del tocco
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
         }
     }
 }

@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,6 +40,8 @@ public class DatabaseRecyclerViewAdapter extends RecyclerView.Adapter<DatabaseRe
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         Rete tmp = reti.get(position);
+
+        //holder.linearLayout.setAnimation(AnimationUtils.loadAnimation(holder.view.getContext(), R.anim.item_animation_fall_down));
 
         // updating elements text
         holder.SSID.setText(tmp.getSSID());
@@ -87,12 +91,15 @@ public class DatabaseRecyclerViewAdapter extends RecyclerView.Adapter<DatabaseRe
         private TextView level;
         private TextView password;
         private TextView position;
+        private LinearLayout linearLayout;
+
         private View view;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             view        = itemView;
+            //linearLayout = (LinearLayout) itemView.findViewById(R.id.dbRecyclerViewLinearLayout);
 
             SSID        = (TextView) itemView.findViewById(R.id.cursor_SSID);
             info        = (TextView) itemView.findViewById(R.id.cursor_dettagli);
