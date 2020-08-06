@@ -103,18 +103,30 @@ public class DBManager {
         return cursor;
     }
 
-    public Cursor search(Double lat, Double lon){
+    public Cursor search(Double lat, Double lon, boolean isPrecisionSearch){
         Cursor cursor = null;
+        /** Query per nonPrecisionSearch **/
+        String nonPrecisionSearch = "SELECT ROWID as _id, * FROM " + DBStrings.TBL_NAME + " ORDER BY " + "((" + DBStrings.FIELD_Latitude + "-" + lat + ")*("+DBStrings.FIELD_Latitude + "-" + lat + ") + (" + DBStrings.FIELD_Longitude + "-" + lon + ")*(" + DBStrings.FIELD_Longitude + "-" + lon + ")) ASC";
+
+                /** Query per precisionSearch **/
+        // stringa per identificazione della distanza
+        String distanza = "(" + DBStrings.FIELD_Latitude + "-" + lat + ")*("+DBStrings.FIELD_Latitude + "-" + lat + ") + (" + DBStrings.FIELD_Longitude + "-" + lon + ")*(" + DBStrings.FIELD_Longitude + "-" + lon + ")";
+        String precisionSearch = "SELECT ROWID as _id, *, " +  distanza + " as Distanza FROM " + DBStrings.TBL_NAME + " WHERE Distanza <= " + distanzaPerGeolocalizzazione ;
+
+        String query = "";
 
         // getting nearest data from given position
         try{
             // getting db instance
             SQLiteDatabase db=dbhelper.getReadableDatabase();
 
-            // stringa per identificazione della distanza
-            String distanza = "(" + DBStrings.FIELD_Latitude + "-" + lat + ")*("+DBStrings.FIELD_Latitude + "-" + lat + ") + (" + DBStrings.FIELD_Longitude + "-" + lon + ")*(" + DBStrings.FIELD_Longitude + "-" + lon + ")";
+            if (isPrecisionSearch) {
+                query = precisionSearch;
+            } else {
+                query = nonPrecisionSearch;
+            }
 
-            cursor = db.rawQuery("SELECT ROWID as _id, *, " +  distanza + " as Distanza FROM " + DBStrings.TBL_NAME + " WHERE Distanza <= " + distanzaPerGeolocalizzazione ,null);
+            cursor = db.rawQuery(query,null);
 
         } catch (SQLiteException e){
             return null;
@@ -123,16 +135,29 @@ public class DBManager {
         return cursor;
     }
 
-    public Cursor search(String s, Double lat, Double lon) {
+    public Cursor search(String s, Double lat, Double lon, boolean isPrecisionSearch) {
         Cursor cursor = null;
+
+        /** Query per nonPrecisionSearch **/
+        String nonPrecisionSearch = "SELECT ROWID as _id, * FROM " + DBStrings.TBL_NAME + " WHERE " + DBStrings.FIELD_SSID + " LIKE '%"+ s + "%'" + " ORDER BY " + "((" + DBStrings.FIELD_Latitude + "-" + lat + ")*("+DBStrings.FIELD_Latitude + "-" + lat + ") + (" + DBStrings.FIELD_Longitude + "-" + lon + ")*(" + DBStrings.FIELD_Longitude + "-" + lon + "))";
+
+        /** Query per precisionSearch **/
+        // stringa per identificazione della distanza
+        String distanza = "(" + DBStrings.FIELD_Latitude + "-" + lat + ")*("+DBStrings.FIELD_Latitude + "-" + lat + ") + (" + DBStrings.FIELD_Longitude + "-" + lon + ")*(" + DBStrings.FIELD_Longitude + "-" + lon + ")";
+        String precisionSearch = "SELECT ROWID as _id, *, " + distanza + " as distanza FROM " + DBStrings.TBL_NAME + " WHERE " + DBStrings.FIELD_SSID + " LIKE '%"+ s + "%' AND distanza <= " + distanzaPerGeolocalizzazione;
+
+        String query = "";
 
         try {
             SQLiteDatabase db=dbhelper.getReadableDatabase();
 
-            // stringa per identificazione della distanza
-            String distanza = "(" + DBStrings.FIELD_Latitude + "-" + lat + ")*("+DBStrings.FIELD_Latitude + "-" + lat + ") + (" + DBStrings.FIELD_Longitude + "-" + lon + ")*(" + DBStrings.FIELD_Longitude + "-" + lon + ")";
+            if (isPrecisionSearch) {
+                query = precisionSearch;
+            } else {
+                query = nonPrecisionSearch;
+            }
+            cursor = db.rawQuery(query,null);
 
-            cursor = db.rawQuery("SELECT ROWID as _id, *, " + distanza + " as distanza FROM " + DBStrings.TBL_NAME + " WHERE " + DBStrings.FIELD_SSID + " LIKE '%"+ s + "%' AND distanza <= " + distanzaPerGeolocalizzazione ,null);
         } catch (SQLiteException e) {
             return null;
         }
