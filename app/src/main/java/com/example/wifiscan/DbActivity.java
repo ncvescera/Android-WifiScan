@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -121,6 +123,8 @@ public class DbActivity extends AppCompatActivity {
 
                 adapter.setReti(reti);
 
+                closeKeyboard(v.getContext());
+
                 return true;
             }
         });
@@ -220,7 +224,15 @@ public class DbActivity extends AppCompatActivity {
                         Toast.makeText(contesto, "Posizione inesistente :/", Toast.LENGTH_SHORT).show();
                     }
                 }
+
+                closeKeyboard(view.getContext());
             }
         });
+    }
+
+    private void closeKeyboard(Context context) {
+        // chiude la tastiera
+        InputMethodManager imm = (InputMethodManager)getSystemService(context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(cercaBtn.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
     }
 }
