@@ -1,4 +1,4 @@
-package com.example.wifiscan;
+package com.example.wifiscan.Adapters;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wifiscan.R;
 import com.example.wifiscan.Utils.AlertBoxManager;
 import com.example.wifiscan.Utils.Rete;
 

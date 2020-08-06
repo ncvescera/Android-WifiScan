@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
+import com.example.wifiscan.Utils.Rete;
+
+import java.util.ArrayList;
+
 public class DBManager {
     private DBHelper dbhelper;
     private static DBManager instance;
@@ -71,8 +75,9 @@ public class DBManager {
         }
     }
 
-    public Cursor query() {
+    public ArrayList<Rete> query() {
         Cursor crs=null;
+        ArrayList<Rete> result = new ArrayList<>();
 
         // select all data from database
         try {
@@ -81,15 +86,19 @@ public class DBManager {
 
             // executing query
             crs = db.rawQuery("SELECT ROWID as _id, * FROM " + DBStrings.TBL_NAME, null);
+
+            result = this.cursorToArray(crs);
+            crs.close();
         } catch(SQLiteException sqle) {
             return null;
         }
 
-        return crs;
+        return result;
     }
 
-    public Cursor search(String s){
+    public ArrayList<Rete> search(String s){
         Cursor cursor = null;
+        ArrayList<Rete> result = new ArrayList<>();
 
         // search by SSID field
         try{
@@ -97,14 +106,20 @@ public class DBManager {
             SQLiteDatabase db=dbhelper.getReadableDatabase();
 
             cursor = db.rawQuery("SELECT ROWID as _id, * FROM " + DBStrings.TBL_NAME + " WHERE " + DBStrings.FIELD_SSID + " LIKE '%"+s +"%'",null);
+
+            result = this.cursorToArray(cursor);
+            cursor.close();
+
         } catch (SQLiteException e){
             return null;
         }
-        return cursor;
+        return result;
     }
 
-    public Cursor search(Double lat, Double lon, boolean isPrecisionSearch){
+    public ArrayList<Rete> search(Double lat, Double lon, boolean isPrecisionSearch){
         Cursor cursor = null;
+        ArrayList<Rete> result = new ArrayList<>();
+
         /** Query per nonPrecisionSearch **/
         String nonPrecisionSearch = "SELECT ROWID as _id, * FROM " + DBStrings.TBL_NAME + " ORDER BY " + "((" + DBStrings.FIELD_Latitude + "-" + lat + ")*("+DBStrings.FIELD_Latitude + "-" + lat + ") + (" + DBStrings.FIELD_Longitude + "-" + lon + ")*(" + DBStrings.FIELD_Longitude + "-" + lon + ")) ASC";
 
@@ -128,15 +143,18 @@ public class DBManager {
 
             cursor = db.rawQuery(query,null);
 
+            result = this.cursorToArray(cursor);
+            cursor.close();
         } catch (SQLiteException e){
             return null;
         }
 
-        return cursor;
+        return result;
     }
 
-    public Cursor search(String s, Double lat, Double lon, boolean isPrecisionSearch) {
+    public ArrayList<Rete> search(String s, Double lat, Double lon, boolean isPrecisionSearch) {
         Cursor cursor = null;
+        ArrayList<Rete> result = new ArrayList<>();
 
         /** Query per nonPrecisionSearch **/
         String nonPrecisionSearch = "SELECT ROWID as _id, * FROM " + DBStrings.TBL_NAME + " WHERE " + DBStrings.FIELD_SSID + " LIKE '%"+ s + "%'" + " ORDER BY " + "((" + DBStrings.FIELD_Latitude + "-" + lat + ")*("+DBStrings.FIELD_Latitude + "-" + lat + ") + (" + DBStrings.FIELD_Longitude + "-" + lon + ")*(" + DBStrings.FIELD_Longitude + "-" + lon + "))";
@@ -158,11 +176,13 @@ public class DBManager {
             }
             cursor = db.rawQuery(query,null);
 
+            result = this.cursorToArray(cursor);
+            cursor.close();
         } catch (SQLiteException e) {
             return null;
         }
 
-        return cursor;
+        return result;
     }
 
     public void update(String campo, String data){
@@ -177,5 +197,64 @@ public class DBManager {
         } catch(SQLiteException exec){
             return;
         }
+    }
+
+    public ArrayList<Rete> cursorToArray(Cursor c) {
+        ArrayList<Rete> array = new ArrayList<Rete>();
+        String[] colonne = c.getColumnNames();
+
+        String ssid;
+        String dettagli;
+        String level;
+        String password;
+        Double lat;
+        Double lon;
+
+        while (c.moveToNext()) {
+            try {
+                ssid = c.getString(c.getColumnIndexOrThrow(DBStrings.FIELD_SSID));
+            } catch (IllegalArgumentException e) {
+                ssid = "";
+            }
+
+            try {
+                dettagli = c.getString(c.getColumnIndexOrThrow(DBStrings.FIELD_Tipo));
+            } catch (IllegalArgumentException e) {
+                dettagli = "";
+            }
+
+            try {
+                level = c.getString(c.getColumnIndexOrThrow(DBStrings.FIELD_Db));
+            } catch (IllegalArgumentException e) {
+                level = "";
+            }
+
+            try {
+                password = c.getString(c.getColumnIndexOrThrow(DBStrings.FIELD_Password));
+            } catch (IllegalArgumentException e) {
+                password = "";
+            }
+
+            try {
+                lat = c.getDouble(c.getColumnIndexOrThrow(DBStrings.FIELD_Latitude));
+            } catch (IllegalArgumentException e) {
+                lat = 0.;
+            }
+
+            try {
+                lon = c.getDouble(c.getColumnIndexOrThrow(DBStrings.FIELD_Longitude));
+            } catch (IllegalArgumentException e) {
+                lon = 0.;
+            }
+
+            Rete tmp = new Rete(ssid, dettagli, level);
+            tmp.setPassword(password);
+            tmp.setLat(lat);
+            tmp.setLon(lon);
+
+            array.add(tmp);
+        }
+
+        return array;
     }
 }

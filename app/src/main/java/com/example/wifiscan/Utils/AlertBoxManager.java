@@ -12,9 +12,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.wifiscan.Adapters.WifiCursorAdapter;
 import com.example.wifiscan.DBManager.DBManager;
+import com.example.wifiscan.DbActivity;
 import com.example.wifiscan.R;
+
+import java.util.ArrayList;
 
 public class AlertBoxManager {
     private static void setButtonsColor(final AlertDialog box) {
@@ -121,7 +123,7 @@ public class AlertBoxManager {
         box.show();
     }
 
-    public static void displayDeleteReteAlertBox(final Activity context, final String wifiName, final WifiCursorAdapter adapter) {
+    public static void displayDeleteReteAlertBox(final Activity context, final String wifiName) {
         final DBManager dbManager = DBManager.getDbInstance(context);
 
         // AlertBox init
@@ -136,10 +138,10 @@ public class AlertBoxManager {
                 // delete the network
                 dbManager.deleteRete(wifiName);
 
-                // getting all data from db to update the cursor
-                Cursor cursor = dbManager.query();
-                adapter.changeCursor(cursor);
-                adapter.notifyDataSetChanged();
+                // qui si va a creare dell'inconsistenza dei dati in DbActivity
+                // per come è ideata DbActivity ha sempre una copia dei dati aggiornata
+                // non succede niente (almeno credo) ma andrebbe sistemato
+                DbActivity.adapter.setReti(dbManager.query());
             }
         });
         builder.setNegativeButton("Annulla", new DialogInterface.OnClickListener() {

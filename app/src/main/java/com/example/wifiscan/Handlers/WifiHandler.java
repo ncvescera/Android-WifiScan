@@ -8,16 +8,13 @@ import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.util.Log;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.wifiscan.MainActivity;
-import com.example.wifiscan.R;
-import com.example.wifiscan.ScanRecyclerViewAdapter;
+import com.example.wifiscan.Adapters.ScanRecyclerViewAdapter;
 import com.example.wifiscan.Utils.Rete;
-import com.example.wifiscan.Adapters.WifiAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
