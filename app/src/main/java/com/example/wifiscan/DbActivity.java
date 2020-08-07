@@ -47,7 +47,11 @@ public class DbActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
+
         this.contesto = this;
+
+        // inizializzo il dbManager
+        manager = DBManager.getDbInstance(getApplicationContext());
 
         // bottone per eliminare il contenuto del database
         cercaBtn = findViewById(R.id.elimina_db);
@@ -56,23 +60,19 @@ public class DbActivity extends AppCompatActivity {
         SSIDEditText = findViewById(R.id.searchSSID);
         PositionEditText = findViewById(R.id.searchPosition);
 
-        // recyclerview principale
-        recyclerView = (RecyclerView) findViewById(R.id.cursor_listview);
-
-        // inizializzo il dbManager
-        manager = DBManager.getDbInstance(getApplicationContext());
-
-        // prendo tutti i dati dal database per inizializzare la listview
-        //cursor = manager.query();
-        reti = manager.query();
-
-        // creo l'adapter e lo aggiungo alla recyclerview
+        // creo l'adapter
         adapter = new DatabaseRecyclerViewAdapter();
 
+        // recyclerview principale
+        recyclerView = (RecyclerView) findViewById(R.id.cursor_listview);
         recyclerView.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation));
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // prendo tutti i dati dal database per inizializzare la listview
+        reti = manager.query();
+
+        //  aggiorno i dati
         adapter.setReti(reti);
         
         // aggiunge i listeners ai vari oggetti
