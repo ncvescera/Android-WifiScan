@@ -103,7 +103,7 @@ public class DbActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.deleteDatabase:
-                AlertBoxManager.displayDeleteAllDataAlertBox(contesto);
+                AlertBoxManager.displayDeleteAllDataAlertBox(contesto, reti);
                 break;
             case R.id.exportCSV:
                 new CsvExporter(contesto, manager.query()).export();

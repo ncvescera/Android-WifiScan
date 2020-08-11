@@ -124,7 +124,7 @@ public class AlertBoxManager {
         box.show();
     }
 
-    public static void displayDeleteReteAlertBox(final Activity context, final String wifiName) {
+    public static void displayDeleteReteAlertBox(final Activity context, final String wifiName, final ArrayList<Rete> dati) {
         final DBManager dbManager = DBManager.getDbInstance(context);
 
         // AlertBox init
@@ -139,10 +139,16 @@ public class AlertBoxManager {
                 // delete the network
                 dbManager.deleteRete(wifiName);
 
-                // qui si va a creare dell'inconsistenza dei dati in DbActivity
-                // per come è ideata DbActivity ha sempre una copia dei dati aggiornata
-                // non succede niente (almeno credo) ma andrebbe sistemato
-                DbActivity.adapter.setReti(dbManager.query());
+                // trova l'elemento all'interno dei dati che va eliminato
+                // così si può mantenere il set di dati attuale senza dover ricaricare ogni volta la query
+                for (Rete elem:dati) {
+                    if (elem.getSSID().equals(wifiName)) {
+                        dati.remove(elem);
+                        break;
+                    }
+                }
+
+                DbActivity.adapter.setReti(dati);
             }
         });
         builder.setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
@@ -158,7 +164,7 @@ public class AlertBoxManager {
         box.show();
     }
 
-    public static void displayDeleteAllDataAlertBox(Activity context) {
+    public static void displayDeleteAllDataAlertBox(Activity context, final ArrayList<Rete> dati) {
         final DBManager dbManager = DBManager.getDbInstance(context);
 
         // AlertBox init
@@ -172,7 +178,8 @@ public class AlertBoxManager {
             public void onClick(DialogInterface dialogInterface, int i) {
                 // delete the network
                 dbManager.deleteAllDataTable(DBStrings.TBL_NAME);
-                DbActivity.adapter.setReti(new ArrayList<Rete>());
+                dati.clear();
+                DbActivity.adapter.setReti(dati);
             }
         });
         builder.setNegativeButton("Annulla", new DialogInterface.OnClickListener() {

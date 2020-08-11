@@ -125,7 +125,7 @@ public class DatabaseRecyclerViewAdapter extends RecyclerView.Adapter<DatabaseRe
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    AlertBoxManager.displayDeleteReteAlertBox((Activity) view.getContext(), SSID.getText().toString());
+                    AlertBoxManager.displayDeleteReteAlertBox((Activity) view.getContext(), SSID.getText().toString(), reti);
 
                     return false;
                 }
