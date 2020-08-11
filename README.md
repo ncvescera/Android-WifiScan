@@ -1,5 +1,5 @@
 # Android-WifiScan
-Un Wifi Scanner per Android.
+![logo](imgs/wifilogo.png)
 
 ## Funzionalità
 
