@@ -134,8 +134,8 @@ public class DbActivity extends AppCompatActivity {
                 break;
             case R.id.degrado:
                 // passa al degrado
-                Intent intent = new Intent(DbActivity.this, DegradoActivity.class);
-                startActivity(intent);
+                /*Intent intent = new Intent(DbActivity.this, DegradoActivity.class);
+                startActivity(intent);*/
                 break;
         }
 
