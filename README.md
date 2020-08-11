@@ -1,4 +1,4 @@
-# Andorid-WIfiScan
+# Android-WifiScan
 Un Wifi Scanner per Android.
 
 ## Funzionalità
