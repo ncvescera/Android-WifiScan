@@ -10,10 +10,11 @@ import android.net.wifi.WifiManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.example.wifiscan.MainActivity;
-import com.example.wifiscan.R;
+import com.example.wifiscan.Adapters.ScanRecyclerViewAdapter;
 import com.example.wifiscan.Utils.Rete;
-import com.example.wifiscan.Adapters.WifiAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,8 +66,11 @@ public class WifiHandler {
                 locationHandler.requestUpdate();
 
                 // update ListView content with the new data by a CutstomArrayAdapter
-                WifiAdapter adapter = new WifiAdapter(context,R.layout.layout_arrayadapter, data);
-                MainActivity.listView.setAdapter(adapter);
+                //WifiAdapter adapter = new WifiAdapter(context,R.layout.layout_arrayadapter, data);
+                ScanRecyclerViewAdapter adapter = new ScanRecyclerViewAdapter(data);
+
+                MainActivity.recyclerView.setAdapter(adapter);
+                MainActivity.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             }
         };
     }

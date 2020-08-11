@@ -12,9 +12,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.wifiscan.Adapters.WifiCursorAdapter;
 import com.example.wifiscan.DBManager.DBManager;
+import com.example.wifiscan.DBManager.DBStrings;
+import com.example.wifiscan.DbActivity;
 import com.example.wifiscan.R;
+
+import java.util.ArrayList;
 
 public class AlertBoxManager {
     private static void setButtonsColor(final AlertDialog box) {
@@ -121,7 +124,7 @@ public class AlertBoxManager {
         box.show();
     }
 
-    public static void displayDeleteReteAlertBox(final Activity context, final String wifiName, final WifiCursorAdapter adapter) {
+    public static void displayDeleteReteAlertBox(final Activity context, final String wifiName, final ArrayList<Rete> dati) {
         final DBManager dbManager = DBManager.getDbInstance(context);
 
         // AlertBox init
@@ -136,10 +139,47 @@ public class AlertBoxManager {
                 // delete the network
                 dbManager.deleteRete(wifiName);
 
-                // getting all data from db to update the cursor
-                Cursor cursor = dbManager.query();
-                adapter.changeCursor(cursor);
-                adapter.notifyDataSetChanged();
+                // trova l'elemento all'interno dei dati che va eliminato
+                // così si può mantenere il set di dati attuale senza dover ricaricare ogni volta la query
+                for (Rete elem:dati) {
+                    if (elem.getSSID().equals(wifiName)) {
+                        dati.remove(elem);
+                        break;
+                    }
+                }
+
+                DbActivity.adapter.setReti(dati);
+            }
+        });
+        builder.setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Log.d("TEST_EXIT", "Annulla");
+            }
+        });
+
+        // creating the AlertBox
+        AlertDialog box = builder.create();
+        setButtonsColor(box);
+        box.show();
+    }
+
+    public static void displayDeleteAllDataAlertBox(Activity context, final ArrayList<Rete> dati) {
+        final DBManager dbManager = DBManager.getDbInstance(context);
+
+        // AlertBox init
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        // adding elems to AlertBox
+        builder.setTitle("Elimina Database");
+        builder.setMessage("Sei sicuro di voler eliminare tutto il contenuto del database ?");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // delete the network
+                dbManager.deleteAllDataTable(DBStrings.TBL_NAME);
+                dati.clear();
+                DbActivity.adapter.setReti(dati);
             }
         });
         builder.setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
