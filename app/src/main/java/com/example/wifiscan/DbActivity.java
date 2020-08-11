@@ -251,7 +251,6 @@ public class DbActivity extends AppCompatActivity {
                         reti = manager.search(ssidText, dati.get(0), dati.get(1), isPrecisionSearch);
 
                         adapter.setReti(reti);
-                        adapter.notifyDataSetChanged();
                     } else {
                         Toast.makeText(contesto, "Posizione inesistente :/", Toast.LENGTH_SHORT).show();
                     }
