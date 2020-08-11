@@ -70,7 +70,7 @@ public class CsvExporter {
                         os.write(enterText.getBytes());
                         os.close();
 
-                        Toast.makeText(contesto, "Esportazione completata !", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(contesto, "Il database è stato esportato in Downloand !", Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         Toast.makeText(contesto, "C'è stato un problema :/", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
@@ -89,7 +89,7 @@ public class CsvExporter {
                     os.write(enterText.getBytes());
                     os.close();
 
-                    Toast.makeText(contesto, "Esportazione completata !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(contesto, "Il database è stato esportato in Downloand !", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     Toast.makeText(contesto, "C'è stato un problema :/", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
