@@ -172,7 +172,7 @@ public class AlertBoxManager {
             public void onClick(DialogInterface dialogInterface, int i) {
                 // delete the network
                 dbManager.deleteAllDataTable(DBStrings.TBL_NAME);
-                DbActivity.adapter.setReti(null);
+                DbActivity.adapter.setReti(new ArrayList<Rete>());
             }
         });
         builder.setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
