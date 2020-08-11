@@ -93,6 +93,10 @@ public class DbActivity extends AppCompatActivity {
         // quando l'Activity viene chiusa il cursore e la connessione al database vengono chiusi
         manager.close();
 
+        // elimino i dati dalla memoria
+        reti.clear();
+        adapter.setReti(reti);
+
         super.onDestroy();
     }
 

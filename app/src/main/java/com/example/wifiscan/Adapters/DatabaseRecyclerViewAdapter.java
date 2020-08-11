@@ -75,7 +75,18 @@ public class DatabaseRecyclerViewAdapter extends RecyclerView.Adapter<DatabaseRe
 
         // commute coordinates into human readable string
         HumanPosition converter = new HumanPosition(holder.view.getContext());
-        holder.position.setText(converter.coordToString(lat, lon));
+
+        String positionText = ""; // variabile che verrà usata per cambiare il testo della TextView position
+        String readablePosition = converter.coordToString(lat, lon);    // variabile temporanea per capire se le coordinate sono state convertite
+
+        // controlla se le coordinate sono state covertite
+        if (!readablePosition.equals("")) {
+            positionText = readablePosition;
+        } else {
+            positionText = ""+ lat + ", " + lon;
+        }
+
+        holder.position.setText(positionText);
     }
 
     @Override
