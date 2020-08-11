@@ -50,6 +50,8 @@ public class DbActivity extends AppCompatActivity {
 
         this.contesto = this;
 
+        reti = new ArrayList<Rete>();
+
         // inizializzo il dbManager
         manager = DBManager.getDbInstance(getApplicationContext());
 
@@ -69,12 +71,34 @@ public class DbActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // prendo tutti i dati dal database per inizializzare la listview
-        reti = manager.query();
+        // Thread per popolare la RecyclerView all'avvio
+        // serve per velocizzare l'avvio dell'Activity
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                /* Non sembra essere necessario far attendere dei secondi prefissati...
+                // aspetta 0.5 secondi
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                */
 
-        //  aggiorno i dati
-        adapter.setReti(reti);
-        
+                // prendo tutti i dati dal database per inizializzare la listview
+                reti = manager.query();
+
+                // passa in modalità UI per poter modificare l'adapter
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //  aggiorno i dati
+                        adapter.setReti(reti);
+                    }
+                });
+            }
+        }).start();
+
         // aggiunge i listeners ai vari oggetti
         setListeners();
     }

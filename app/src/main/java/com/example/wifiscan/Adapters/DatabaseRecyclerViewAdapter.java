@@ -29,7 +29,7 @@ public class DatabaseRecyclerViewAdapter extends RecyclerView.Adapter<DatabaseRe
     }
 
     public DatabaseRecyclerViewAdapter() {
-
+        reti = new ArrayList<Rete>();
     }
 
     @NonNull
