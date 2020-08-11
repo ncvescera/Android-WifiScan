@@ -89,8 +89,8 @@ public class DBManager {
 
             result = this.cursorToArray(crs);
             crs.close();
-        } catch(SQLiteException sqle) {
-            return null;
+        } catch(SQLiteException e) {
+            Log.e("QUERY_ERROR", e.toString());
         }
 
         return result;
@@ -111,7 +111,7 @@ public class DBManager {
             cursor.close();
 
         } catch (SQLiteException e){
-            return null;
+            Log.e("QUERY_ERROR", e.toString());
         }
         return result;
     }
@@ -146,7 +146,7 @@ public class DBManager {
             result = this.cursorToArray(cursor);
             cursor.close();
         } catch (SQLiteException e){
-            return null;
+            Log.e("QUERY_ERROR", e.toString());
         }
 
         return result;
@@ -179,7 +179,7 @@ public class DBManager {
             result = this.cursorToArray(cursor);
             cursor.close();
         } catch (SQLiteException e) {
-            return null;
+            Log.e("QUERY_ERROR", e.toString());
         }
 
         return result;
