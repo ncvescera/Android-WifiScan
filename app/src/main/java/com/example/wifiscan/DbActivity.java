@@ -106,7 +106,7 @@ public class DbActivity extends AppCompatActivity {
                 AlertBoxManager.displayDeleteAllDataAlertBox(contesto);
                 break;
             case R.id.exportCSV:
-                new CsvExporter(contesto, reti).export();
+                new CsvExporter(contesto, manager.query()).export();
                 break;
             case R.id.degrado:
                 // passa al degrado

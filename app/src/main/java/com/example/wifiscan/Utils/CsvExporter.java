@@ -30,7 +30,13 @@ public class CsvExporter {
         String toWrite = "";
 
         for (Rete elem:dati) {
-            String line = elem.getSSID() + ";"+ elem.getDettagli() + ";" + elem.getLevel() + ";" + elem.getPassword() + ";" + elem.getLat() + ";" + elem.getLon();
+            String line = elem.getSSID() + ";"+
+                    elem.getDettagli() + ";" +
+                    elem.getLevel() + ";" +
+                    elem.getPassword().replace("\n", "").replace("\r", "") + ";" +
+                    elem.getLat() + ";" +
+                    elem.getLon();
+
             toWrite += line + "\n";
         }
 
