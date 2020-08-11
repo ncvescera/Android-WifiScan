@@ -39,6 +39,8 @@ Per eliminare una rete è sufficente effettuare un TAP prolungato sulla rete.
 * Posizione
 * SSID e Posizione
 
+**Attenzione**: è richiesta una connessione ad internet funzionante per poter effettuare una ricerca per Posizione. Se non è presente una connessione ad internet funzionante verrà mostrata a video le Coordinate (latitudine e longitudine) invece che la posizione.
+
 La ricerca per posizione offre la funzione **Ricerca precisa** che è possibile attivare anteponendo il carattere `*` alla posizione.
 
 _E.G._<br>
