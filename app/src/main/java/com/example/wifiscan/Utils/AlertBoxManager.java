@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.wifiscan.DBManager.DBManager;
+import com.example.wifiscan.DBManager.DBStrings;
 import com.example.wifiscan.DbActivity;
 import com.example.wifiscan.R;
 
@@ -142,6 +143,36 @@ public class AlertBoxManager {
                 // per come è ideata DbActivity ha sempre una copia dei dati aggiornata
                 // non succede niente (almeno credo) ma andrebbe sistemato
                 DbActivity.adapter.setReti(dbManager.query());
+            }
+        });
+        builder.setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Log.d("TEST_EXIT", "Annulla");
+            }
+        });
+
+        // creating the AlertBox
+        AlertDialog box = builder.create();
+        setButtonsColor(box);
+        box.show();
+    }
+
+    public static void displayDeleteAllDataAlertBox(Activity context) {
+        final DBManager dbManager = DBManager.getDbInstance(context);
+
+        // AlertBox init
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        // adding elems to AlertBox
+        builder.setTitle("Elimina Database");
+        builder.setMessage("Sei sicuro di voler eliminare tutto il contenuto del database ?");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // delete the network
+                dbManager.deleteAllDataTable(DBStrings.TBL_NAME);
+                DbActivity.adapter.setReti(null);
             }
         });
         builder.setNegativeButton("Annulla", new DialogInterface.OnClickListener() {

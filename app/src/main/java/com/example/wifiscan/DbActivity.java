@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.wifiscan.Adapters.DatabaseRecyclerViewAdapter;
 import com.example.wifiscan.DBManager.DBManager;
 import com.example.wifiscan.DBManager.DBStrings;
+import com.example.wifiscan.Utils.AlertBoxManager;
 import com.example.wifiscan.Utils.HumanPosition;
 import com.example.wifiscan.Utils.Rete;
 
@@ -103,9 +104,7 @@ public class DbActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.deleteDatabase:
-                manager.deleteAllDataTable(DBStrings.TBL_NAME);
-
-                adapter.setReti(null);
+                AlertBoxManager.displayDeleteAllDataAlertBox(contesto);
                 break;
             case R.id.degrado:
                 // passa al degrado
