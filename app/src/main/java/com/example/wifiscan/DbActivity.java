@@ -20,11 +20,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-
 import com.example.wifiscan.Adapters.DatabaseRecyclerViewAdapter;
 import com.example.wifiscan.DBManager.DBManager;
-import com.example.wifiscan.DBManager.DBStrings;
 import com.example.wifiscan.Utils.AlertBoxManager;
+import com.example.wifiscan.Utils.CsvExporter;
 import com.example.wifiscan.Utils.HumanPosition;
 import com.example.wifiscan.Utils.Rete;
 
@@ -105,6 +104,9 @@ public class DbActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.deleteDatabase:
                 AlertBoxManager.displayDeleteAllDataAlertBox(contesto);
+                break;
+            case R.id.exportCSV:
+                new CsvExporter(contesto, reti).export();
                 break;
             case R.id.degrado:
                 // passa al degrado
@@ -241,4 +243,5 @@ public class DbActivity extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager)getSystemService(context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(cercaBtn.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
     }
+
 }

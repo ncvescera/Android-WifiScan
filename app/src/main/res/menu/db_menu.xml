@@ -9,6 +9,12 @@
         app:showAsAction="never"
         />
     <item
+        android:id="@+id/exportCSV"
+        android:icon="@drawable/ic_icon"
+        android:title="Esporta Database"
+        app:showAsAction="never"
+        />
+    <item
         android:id="@+id/degrado"
         android:icon="@drawable/ic_icon"
         android:title=" "
