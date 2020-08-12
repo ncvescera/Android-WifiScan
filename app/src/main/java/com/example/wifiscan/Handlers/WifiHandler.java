@@ -60,7 +60,7 @@ public class WifiHandler {
                     }
                 }
 
-                Toast.makeText(context, "Getting location ...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Accedo alla posizione ...", Toast.LENGTH_SHORT).show();
 
                 // getting latitude and longitude
                 locationHandler.requestUpdate();
@@ -107,7 +107,7 @@ public class WifiHandler {
     private void check_wifi_state() {
         // if wifi is disabled it enables it
         if (!this.wifiManager.isWifiEnabled()) {
-            Toast.makeText(this.context, "WiFi is disabled ... We need to enable it", Toast.LENGTH_LONG).show();
+            Toast.makeText(this.context, "Wifi Disabilitato, abilitarlo !", Toast.LENGTH_LONG).show();
             this.wifiManager.setWifiEnabled(true);
         }
     }

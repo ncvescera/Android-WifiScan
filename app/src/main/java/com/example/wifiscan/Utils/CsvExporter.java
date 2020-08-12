@@ -54,7 +54,7 @@ public class CsvExporter {
 
     private void requestPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(contesto, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            Toast.makeText(contesto, "Write External Storage permission allows us to create files. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+            Toast.makeText(contesto, "Abilita il permesso alla memoria nelle impostazioni !", Toast.LENGTH_LONG).show();
         } else {
             ActivityCompat.requestPermissions(contesto, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
         }

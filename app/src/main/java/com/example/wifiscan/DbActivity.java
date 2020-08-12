@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -56,7 +55,9 @@ public class DbActivity extends AppCompatActivity {
         manager = DBManager.getDbInstance(getApplicationContext());
 
         // bottone per eliminare il contenuto del database
+        // il bottone viene disabilitato fin quando i dati non sono stati stampati
         cercaBtn = findViewById(R.id.elimina_db);
+        cercaBtn.setEnabled(false);
 
         // EditText per la ricerca
         SSIDEditText = findViewById(R.id.searchSSID);
@@ -94,6 +95,7 @@ public class DbActivity extends AppCompatActivity {
                     public void run() {
                         //  aggiorno i dati
                         adapter.setReti(reti);
+                        cercaBtn.setEnabled(true);
                     }
                 });
             }
