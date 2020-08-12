@@ -2,7 +2,6 @@ package com.example.wifiscan.Utils;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,7 +36,7 @@ public class AlertBoxManager {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View dialog_layout = inflater.inflate(R.layout.dialog_layout, null);
+        View dialog_layout = inflater.inflate(R.layout.layout_alertbox, null);
 
         // getting EditText ref
         final EditText text = (EditText) dialog_layout.findViewById(R.id.edittext);
@@ -81,7 +80,7 @@ public class AlertBoxManager {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View dialog_layout = inflater.inflate(R.layout.dialog_layout, null);
+        View dialog_layout = inflater.inflate(R.layout.layout_alertbox, null);
 
         // getting EditText ref.
         final EditText text = (EditText) dialog_layout.findViewById(R.id.edittext);

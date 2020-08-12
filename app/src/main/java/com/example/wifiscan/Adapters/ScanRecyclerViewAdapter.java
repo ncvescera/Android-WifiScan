@@ -27,7 +27,7 @@ public class ScanRecyclerViewAdapter extends RecyclerView.Adapter<ScanRecyclerVi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_arrayadapter, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_mainactivity_recyclerview, parent, false);
         ViewHolder holder = new ViewHolder(view);
 
         return holder;

@@ -34,7 +34,7 @@ public class DatabaseRecyclerViewAdapter extends RecyclerView.Adapter<DatabaseRe
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_cursoradapter, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_dbactivity_recyclerview, parent, false);
         DatabaseRecyclerViewAdapter.ViewHolder holder = new DatabaseRecyclerViewAdapter.ViewHolder(view);
 
         return holder;

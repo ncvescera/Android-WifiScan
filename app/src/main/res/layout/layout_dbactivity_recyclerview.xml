@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:id="@+id/dbRecyclerViewLinearLayout">
+
+        <TextView
+            android:id="@+id/cursor_SSID"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".20"
+            android:text="SSID"/>
+
+        <TextView
+            android:id="@+id/cursor_dettagli"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".20"
+            android:gravity="center|top"
+            android:text="Dettagli" />
+
+        <TextView
+            android:id="@+id/cursor_level"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".10"
+            android:gravity="center|top"
+            android:text="Level" />
+
+        <TextView
+            android:id="@+id/cursor_password"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".25"
+            android:clickable="true"
+            android:gravity="center|top"
+            android:text="Password" />
+
+        <TextView
+            android:id="@+id/cursor_position"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".25"
+            android:text="Password"
+            android:gravity="left"/>
+
+    </LinearLayout>
+</RelativeLayout>

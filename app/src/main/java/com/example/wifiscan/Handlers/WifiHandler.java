@@ -66,7 +66,7 @@ public class WifiHandler {
                 locationHandler.requestUpdate();
 
                 // update ListView content with the new data by a CutstomArrayAdapter
-                //WifiAdapter adapter = new WifiAdapter(context,R.layout.layout_arrayadapter, data);
+                //WifiAdapter adapter = new WifiAdapter(context,R.layout.layout_mainactivity_recyclerview, data);
                 ScanRecyclerViewAdapter adapter = new ScanRecyclerViewAdapter(data);
 
                 MainActivity.recyclerView.setAdapter(adapter);
