@@ -7,4 +7,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="btnSave" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorButtonNormal">#6200EA</item>
+        <item name="colorAccent">#691977</item>
+    </style>
+
+    <style name="btnScan" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorButtonNormal">#6200EA</item>
+        <item name="colorAccent">#9C27B0</item>
+    </style>
+
 </resources>

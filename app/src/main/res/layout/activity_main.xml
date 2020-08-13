@@ -65,15 +65,19 @@
 
     <Button
         android:id="@+id/btn_scan"
+
+        android:theme="@style/btnScan"
+        style="@style/Widget.AppCompat.Button.Colored"
+
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="142dp"
         android:layout_marginRight="16dp"
-        android:backgroundTint="#9C27B0"
+
         android:text="SCAN"
-        android:textColor="#FFFFFF"
+
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btn_save"
@@ -102,11 +106,10 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-
-        android:backgroundTint="#691977"
+        android:theme="@style/btnSave"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:enabled="false"
         android:text="Save"
-        android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
