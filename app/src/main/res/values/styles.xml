@@ -8,13 +8,13 @@
     </style>
 
     <style name="btnSave" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorButtonNormal">#6200EA</item>
-        <item name="colorAccent">#691977</item>
+        <item name="colorButtonNormal">@color/btnDisabled</item>
+        <item name="colorAccent">@color/btnSaveEnabled</item>
     </style>
 
     <style name="btnScan" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorButtonNormal">#6200EA</item>
-        <item name="colorAccent">#9C27B0</item>
+        <item name="colorButtonNormal">@color/btnDisabled</item>
+        <item name="colorAccent">@color/btnScanEnabled</item>
     </style>
 
 </resources>

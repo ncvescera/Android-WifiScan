@@ -3,4 +3,9 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <!-- Colori per i bottoni di MainActivity -->
+    <color name="btnSaveEnabled">#691977</color>
+    <color name="btnScanEnabled">#9C27B0</color>
+    <color name="btnDisabled">#6200EA</color>
 </resources>
