@@ -42,15 +42,16 @@
 
         <ImageButton
             android:id="@+id/elimina_db"
+            android:theme="@style/btnSearch"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="90dp"
             android:layout_height="match_parent"
             android:layout_row="0"
             android:layout_rowSpan="2"
             android:layout_column="1"
-            android:backgroundTint="#AD32CF"
             android:scaleType="fitCenter"
             android:src="@drawable/search"
-            android:tint="#FFFFFF" />
+             />
     </GridLayout>
 
     <LinearLayout

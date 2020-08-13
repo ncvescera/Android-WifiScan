@@ -17,4 +17,10 @@
         <item name="colorAccent">@color/btnScanEnabled</item>
     </style>
 
+    <style name="btnSearch" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorButtonNormal">@color/btnDisabled</item>
+        <item name="colorAccent">@color/btnScanEnabled</item>
+        <item name="tint">#FFFFFF</item>
+    </style>
+
 </resources>
