@@ -1,10 +1,12 @@
 package com.example.wifiscan.Adapters;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,7 +41,17 @@ public class ScanRecyclerViewAdapter extends RecyclerView.Adapter<ScanRecyclerVi
 
         holder.SSID.setText(tmp.getSSID());
         holder.info.setText(tmp.getDettagli());
-        holder.level.setText(tmp.getLevel());
+
+        int level = Integer.valueOf(tmp.getLevel());
+        Log.d("LEVEL", ""+ level);
+        if (level >= -50) {
+            holder.level.setImageResource(R.drawable.wifi3);
+        } else if (level >= -60) {
+            holder.level.setImageResource(R.drawable.wifi2);
+        } else {
+            holder.level.setImageResource(R.drawable.wifi1);
+        }
+        //holder.level.setText(tmp.getLevel());
 
         holder.pwd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +75,7 @@ public class ScanRecyclerViewAdapter extends RecyclerView.Adapter<ScanRecyclerVi
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView SSID;
         private TextView info;
-        private TextView level;
+        private ImageView level;
         private Button pwd;
 
         public ViewHolder(@NonNull View itemView) {
@@ -71,7 +83,7 @@ public class ScanRecyclerViewAdapter extends RecyclerView.Adapter<ScanRecyclerVi
 
             SSID       = (TextView) itemView.findViewById(R.id.SSID);
             info       = (TextView) itemView.findViewById(R.id.dettagli);
-            level      = (TextView) itemView.findViewById(R.id.level);
+            level      = (ImageView) itemView.findViewById(R.id.level);
             pwd        = (Button)   itemView.findViewById(R.id.pwd);
 
             // per rendere l'elemento cliccabile ed avviare l'animazione del tocco

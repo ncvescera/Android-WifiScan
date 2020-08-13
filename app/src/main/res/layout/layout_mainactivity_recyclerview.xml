@@ -13,7 +13,7 @@
             android:id="@+id/SSID"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".25"
+            android:layout_weight=".2833"
             android:text="Plain Text"
             android:textSize="15dp"
             android:gravity="left"/>
@@ -22,26 +22,25 @@
             android:id="@+id/dettagli"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".25"
+            android:layout_weight=".2833"
             android:fadeScrollbars="false"
             android:gravity="right"
             android:text="Plain Text"
             android:textSize="15dp" />
 
-        <TextView
+        <ImageView
             android:id="@+id/level"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".25"
-            android:text="Plain Text"
-            android:textSize="15dp"
-            android:gravity="center"/>
+            android:layout_weight=".15"
+            android:adjustViewBounds="true"
+            android:src="@drawable/wifi1" />
 
         <Button
             android:id="@+id/pwd"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".25"
+            android:layout_weight=".2833"
             android:backgroundTint="#673AB7"
             android:text="Edit"
             android:textColor="#FFFFFF"
