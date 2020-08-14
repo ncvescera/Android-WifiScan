@@ -49,7 +49,6 @@ public class DatabaseRecyclerViewAdapter extends RecyclerView.Adapter<DatabaseRe
         // updating elements text
         holder.SSID.setText(tmp.getSSID());
         holder.info.setText(tmp.getDettagli());
-        holder.level.setText(tmp.getLevel());
 
         // decripta la password
         try {
@@ -102,7 +101,6 @@ public class DatabaseRecyclerViewAdapter extends RecyclerView.Adapter<DatabaseRe
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView SSID;
         private TextView info;
-        private TextView level;
         private TextView password;
         private TextView position;
         private LinearLayout linearLayout;
@@ -117,7 +115,6 @@ public class DatabaseRecyclerViewAdapter extends RecyclerView.Adapter<DatabaseRe
 
             SSID        = (TextView) itemView.findViewById(R.id.cursor_SSID);
             info        = (TextView) itemView.findViewById(R.id.cursor_dettagli);
-            level       = (TextView) itemView.findViewById(R.id.cursor_level);
             password    = (TextView) itemView.findViewById(R.id.cursor_password);
             position    = (TextView) itemView.findViewById(R.id.cursor_position);
 

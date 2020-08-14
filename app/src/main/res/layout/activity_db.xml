@@ -69,7 +69,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".20"
+            android:layout_weight=".25"
             android:gravity="left"
             android:text="SSID"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
@@ -79,21 +79,11 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".20"
-            android:gravity="left"
+            android:layout_weight=".25"
+            android:gravity="center"
             android:text="Dettagli"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="18dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".10"
-            android:gravity="center"
-            android:text="Db"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="20dp"
             android:textStyle="bold" />
 
         <TextView
