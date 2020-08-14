@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:layout_weight=".2833"
             android:fadeScrollbars="false"
-            android:gravity="right"
+            android:gravity="center|top"
             android:text="Plain Text"
             android:textSize="15dp" />
 

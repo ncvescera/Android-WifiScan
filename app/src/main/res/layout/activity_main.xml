@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/intestazione"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -15,14 +16,15 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/view_scan">
 
         <TextView
             android:id="@+id/testo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
-            android:gravity="center"
+            android:gravity="left"
             android:text="SSID"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="25dp"
@@ -71,7 +73,7 @@
         android:layout_height="70dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="142dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="16dp"
         android:text="SCAN"
         android:textSize="24sp"
@@ -79,19 +81,19 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_scan"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/view_scan" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/view_scan"
         android:layout_width="match_parent"
-        android:layout_height="403dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="52dp"
         android:layout_marginRight="16dp"
+        android:layout_marginTop="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/intestazione"
+        app:layout_constraintBottom_toTopOf="@+id/btn_scan"
         android:layoutAnimation="@anim/layout_animation"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
@@ -110,7 +112,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_scan"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
