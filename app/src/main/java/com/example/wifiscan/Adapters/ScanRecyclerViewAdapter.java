@@ -45,11 +45,11 @@ public class ScanRecyclerViewAdapter extends RecyclerView.Adapter<ScanRecyclerVi
         int level = Integer.valueOf(tmp.getLevel());
         Log.d("LEVEL", ""+ level);
         if (level >= -50) {
-            holder.level.setImageResource(R.drawable.wifi3);
+            holder.level.setImageResource(R.drawable.wifi3_round);
         } else if (level >= -60) {
-            holder.level.setImageResource(R.drawable.wifi2);
+            holder.level.setImageResource(R.drawable.wifi2_round);
         } else {
-            holder.level.setImageResource(R.drawable.wifi1);
+            holder.level.setImageResource(R.drawable.wifi1_round);
         }
         //holder.level.setText(tmp.getLevel());
 

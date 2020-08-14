@@ -34,7 +34,9 @@
             android:layout_height="match_parent"
             android:layout_weight=".15"
             android:adjustViewBounds="true"
-            android:src="@drawable/wifi1" />
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:src="@drawable/wifi1_round" />
 
         <Button
             android:id="@+id/pwd"
