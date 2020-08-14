@@ -193,4 +193,30 @@ public class AlertBoxManager {
         setButtonsColor(box);
         box.show();
     }
+
+    public static void displayInfoAlertBox(final Activity context, final String dettagli) {
+        // AlertBox init
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        // adding elems to AlertBox
+        builder.setTitle("Dettagli");
+        builder.setMessage(dettagli.replace("]", "]\n"));
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        // creating the AlertBox
+        AlertDialog box = builder.create();
+        setButtonsColor(box);
+        box.show();
+    }
 }

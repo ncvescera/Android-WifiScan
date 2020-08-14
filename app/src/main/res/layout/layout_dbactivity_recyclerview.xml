@@ -15,13 +15,17 @@
             android:layout_weight=".25"
             android:text="SSID"/>
 
-        <TextView
+        <ImageView
             android:id="@+id/cursor_dettagli"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".25"
             android:gravity="center|top"
-            android:text="Dettagli" />
+            android:src="@drawable/lock"
+            android:clickable="true"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:background="?android:attr/selectableItemBackground"/>
 
         <TextView
             android:id="@+id/cursor_password"
@@ -30,7 +34,8 @@
             android:layout_weight=".25"
             android:clickable="true"
             android:gravity="center|top"
-            android:text="Password" />
+            android:text="Password"
+            android:background="?android:attr/selectableItemBackground"/>
 
         <TextView
             android:id="@+id/cursor_position"

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -48,7 +49,21 @@ public class DatabaseRecyclerViewAdapter extends RecyclerView.Adapter<DatabaseRe
 
         // updating elements text
         holder.SSID.setText(tmp.getSSID());
-        holder.info.setText(tmp.getDettagli());
+
+        // mostra un lucchetto aperto o chiuso in base alla protezione della rete
+        final String infoText = tmp.getDettagli();
+        if (infoText.contains("WPA")) {
+            holder.info.setImageResource(R.drawable.lock);
+        } else {
+            holder.info.setImageResource(R.drawable.unlock);
+        }
+
+        holder.info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertBoxManager.displayInfoAlertBox((Activity) view.getContext(), infoText);
+            }
+        });
 
         // decripta la password
         try {
@@ -100,7 +115,7 @@ public class DatabaseRecyclerViewAdapter extends RecyclerView.Adapter<DatabaseRe
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView SSID;
-        private TextView info;
+        private ImageView info;
         private TextView password;
         private TextView position;
         private LinearLayout linearLayout;
@@ -114,7 +129,7 @@ public class DatabaseRecyclerViewAdapter extends RecyclerView.Adapter<DatabaseRe
             //linearLayout = (LinearLayout) itemView.findViewById(R.id.dbRecyclerViewLinearLayout);
 
             SSID        = (TextView) itemView.findViewById(R.id.cursor_SSID);
-            info        = (TextView) itemView.findViewById(R.id.cursor_dettagli);
+            info        = (ImageView) itemView.findViewById(R.id.cursor_dettagli);
             password    = (TextView) itemView.findViewById(R.id.cursor_password);
             position    = (TextView) itemView.findViewById(R.id.cursor_position);
 
